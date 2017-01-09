@@ -1,0 +1,10 @@
+{
+  "name": "movie-history-githappens",
+  "homepage": "https://github.com/nss-day-cohort-17/movie-history-githappens",
+  "authors": [
+    "LucasMcL <LMcLaughlin09@gmail.com>"
+  ],
+  "description": "Movie History group project",
+  "main": "index.html",
+  "license": "MIT"
+}
