@@ -16,11 +16,11 @@ function addTabEvents() {
 		$('section').addClass('hidden')
 		$('#watchlist').removeClass('hidden')
 	})
-	$('#watched-movies-tab').click(function() {
+	$('#history-tab').click(function() {
 		$('#tabs a').removeClass('active')
-		$('#watched-movies-tab a').addClass('active')
+		$('#history-tab a').addClass('active')
 		$('section').addClass('hidden')
-		$('#watched-movies').removeClass('hidden')
+		$('#history').removeClass('hidden')
 	})
 	$('#all-movies-tab').click(function() {
 		$('#tabs a').removeClass('active')
