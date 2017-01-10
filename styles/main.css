@@ -1,3 +1,4 @@
+
 /*********************
  ** Page Layout
  *********************/
@@ -10,4 +11,18 @@
 
 .hidden {
 	display: none !important;
+
+/*************************
+Style for movie cards
+*************************/
+
+.year span {
+  font-weight:  bold;
 }
+
+.actors span {
+  font-weight:  bold;
+}
+
+.plot span {
+  font-weight:  bold;
