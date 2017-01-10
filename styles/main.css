@@ -1,17 +1,4 @@
 
-/*********************
- ** Page Layout
- *********************/
-
-
-
-/*********************
- ** Helper Classes
- *********************/
-
-.hidden {
-	display: none !important;
-
 /*************************
 Style for movie cards
 *************************/
@@ -26,3 +13,12 @@ Style for movie cards
 
 .plot span {
   font-weight:  bold;
+}
+
+/*********************
+ ** Helper Classes
+ *********************/
+
+.hidden {
+	display: none !important;
+}
