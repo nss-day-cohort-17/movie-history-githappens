@@ -13,3 +13,18 @@ Style for movie cards
 .plot span {
   font-weight:  bold;
 }
+
+.badge {
+  margin-bottom: 1em;
+}
+
+
+/*************************
+Style for add movie cards
+*************************/
+
+
+.searchCard {
+  margin-top: 1em;
+  padding: 1em;
+}
