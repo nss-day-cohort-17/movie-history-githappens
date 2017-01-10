@@ -1,15 +1,18 @@
+
 /*************************
 Style for movie cards
 *************************/
 
-.year span {
-  font-weight:  bold;
-}
-
-.actors span {
-  font-weight:  bold;
-}
-
+.year span,
+.actors span,
 .plot span {
   font-weight:  bold;
+}
+
+/*********************
+ ** Helper Classes
+ *********************/
+
+.hidden {
+	display: none !important;
 }
