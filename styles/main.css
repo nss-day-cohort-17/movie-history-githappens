@@ -1,0 +1,11 @@
+/*************************
+Style for movie cards
+*************************/
+
+.year span {
+  font-weight:  bold;
+}
+
+.actors span {
+  font-weight:  bold;
+}
