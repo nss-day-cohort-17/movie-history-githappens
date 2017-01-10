@@ -53,12 +53,20 @@ function populateWatchlist(watchlist) {
 	for(var movie in watchlist) {
 		card = template(watchlist[movie])
 		$('#watchlist .movie-cards .row').append(card)
+		$('#all-movies .movie-cards .row').append(card)
 	}
-	console.log('populateWatchlist')
 }
 
-function populateHistory(data) {
-	console.log('populateHistory')
+// Uses handlebar template to create cards
+function populateHistory(history) {
+	var templateHTML = $('#card-template').html()
+	var template = Handlebars.compile(templateHTML)
+
+	for(var movie in history) {
+		card = template(history[movie])
+		$('#history .movie-cards .row').append(card)
+		$('#all-movies .movie-cards .row').append(card)
+	}
 }
 
 
