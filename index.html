@@ -40,6 +40,11 @@
 
 <section id="watchlist">
 	<h2>Watchlist</h2>
+	<div class="movie-cards container">
+		<div class="row">
+
+		</div> <!-- end row -->
+	</div> <!-- end container -->
 </section>
 
 <!-- - - - - - - - - - - - - - -
@@ -58,34 +63,30 @@
 	<h2>All Movies</h2>
 </section>
 
-
-
-
-
-<!-- basic card -->
-<div class="container">
-  <div class="row">
-    <div class="col s6 m7">
-        <h2 class="header movieTitle">Star Wars</h2>
-        <div class="card horizontal small">
-          <div class="card-image">
-            <img src="http://i.imgur.com/ftwwbAg.jpg">
-          </div>
-          <div class="card-stacked">
-            <div class="card-content">
-              <p class="year"><span>Year: </span>1977</p>
-              <p class="actors"><span>Actors: </span>Harrison Ford, Carrie Fisher, Mark Hammil</p>
-              <p class="plot"><span>Plot: </span>Stuff happens in space</p>
-            </div>
-            <div class="card-action">
-              <a href="#">Add to Watch List</a>
-            </div>
-          </div>
-        </div>
-        <span class="new badge" data-badge-caption="stars">4</span>
+<!-- - - - - - - - - - - - - - -
+ - - Card Template
+ - - - - - - - - - - - - - -  -->
+<script id="card-template" type="text/x-handlebars-template">
+  <div class="col m12 l6">
+    <h4 class="header movieTitle">{{Title}}</h4>
+    <div class="card horizontal small">
+      <div class="card-image">
+        <img src="{{Poster}}">
       </div>
-    </div> <!-- end of row -->
-</div> <!-- end of card -->
+      <div class="card-stacked">
+        <div class="card-content">
+          <p class="year"><span>Year: </span>{{Year}}</p>
+          <p class="actors"><span>Actors: </span>{{Actors}}</p>
+          <p class="plot"><span>Plot: </span>{{Plot}}</p>
+        </div>
+        <div class="card-action">
+          <a href="#">Add to Watch List</a>
+        </div>
+      </div>
+    </div>
+    <span class="new badge" data-badge-caption="stars">4</span>
+  </div>
+</script> <!-- end card template -->
 
 
 <!-- jQuery -->

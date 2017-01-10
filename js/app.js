@@ -30,7 +30,7 @@ function addTabEvents() {
 	})
 }
 
-// Show 3 movies in watchlist and 3 movies in history
+// Queries firebase for initial data
 function loadInitialMovies() {
 	var watchlistUrl = 'https://moviehistory-githappens.firebaseio.com/watchlist.json'
 	var historyUrl = 'https://moviehistory-githappens.firebaseio.com/history.json'
@@ -45,14 +45,20 @@ function loadInitialMovies() {
 	p2.then(populateHistory)
 }
 
-function populateWatchlist(data) {
+// Uses handlebar template to create cards
+function populateWatchlist(watchlist) {
+	var templateHTML = $('#card-template').html()
+	var template = Handlebars.compile(templateHTML)
+
+	for(var movie in watchlist) {
+		card = template(watchlist[movie])
+		$('#watchlist .movie-cards .row').append(card)
+	}
 	console.log('populateWatchlist')
-	console.log(data)
 }
 
 function populateHistory(data) {
 	console.log('populateHistory')
-	console.log(data)
 }
 
 
