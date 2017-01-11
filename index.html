@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
   	<meta charset="UTF-8">
   	<title>Movie History</title>
@@ -9,92 +10,45 @@
   </head>
   <body>
 
-
 <!-- - - - - - - - - - - - - - -
  - -  Nav Bar
  - - - - - - - - - - - - - -  -->
-    <nav class="nav-extended">
-      <div class="nav-wrapper">
-        <a href="#" class="brand-logo">Logo</a>
-        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="sass.html">Add Movie</a></li>
-          <li><a href="badges.html">My Collection</a></li>
-          <li><a href="collapsible.html">Log in</a></li>
-        </ul>
-        <ul class="side-nav" id="mobile-demo">
-          <li><a href="sass.html">Add Movie</a></li>
-          <li><a href="badges.html">My Collection</a></li>
-          <li><a href="collapsible.html">Log in</a></li>
-        </ul>
 
-        <ul id="tabs" class="tabs tabs-transparent">
-          <li id="watchlist-tab" class="tab"><a class="active">Watchlist</a></li>
-          <li id="history-tab" class="tab"><a>History</a></li>
-          <li id="all-movies-tab" class="tab"><a>All Movies</a></li>
-        </ul>
-      </div>
-    </nav>
+<nav class="nav-extended">
+  <div class="nav-wrapper">
+    <a href="#" class="brand-logo">Logo</a>
+    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="sass.html">Add Movie</a></li>
+      <li><a href="badges.html">My Collection</a></li>
+      <li><a href="collapsible.html">Log in</a></li>
+    </ul>
+    <ul class="side-nav" id="mobile-demo">
+      <li><a href="sass.html">Add Movie</a></li>
+      <li><a href="badges.html">My Collection</a></li>
+      <li><a href="collapsible.html">Log in</a></li>
+    </ul>
 
-<!-- - - - - - - - - - - - - - -
- - - Add Movies Card
- - - - - - - - - - - - - - -  -->
-
-    <div class="container"> <!-- container for materialize add Movie card-->
-
-    <div class="addMoviesCard">
-      <div class="row">
-        <form class="col s12">
-          <div class="row z-depth-4 searchCard">
-            <h4>Search for Movies</h4>
-            <div class="input-field col s6">
-              <i class="material-icons prefix">movie</i>
-              <input id="icon_prefix" type="text" class="validate userMovieSearch">
-              <label class="active" for="icon_prefix">Movie Title</label>
-            </div>
-            <div class="input-field col s6">
-               <button class="btn waves-effect waves-light col s3" id="movieSearch" type="submit" name="action">Search
-                <i class="material-icons right">search</i>
-              </button>
-            </div> <!-- end input field -->
-          </div>
-        </form>
-      </div>  <!-- end of outer row -->
-    </div> <!-- end of add movies card -->
-  </div> <!-- end of container for add movies card   -->
-
-
-<!-- Where card for searched movies lives -->
-
-  <div class="addMovieContainer container">
-      <div class="row">
-
-      </div> <!-- end of row -->
-    </div> <!-- end of card -->
-
-
-
-
-
-
-
-
-
-
-
+    <ul id="tabs" class="tabs tabs-transparent">
+      <li id="watchlist-tab" class="tab"><a class="active">Watchlist</a></li>
+      <li id="history-tab" class="tab"><a>History</a></li>
+      <li id="all-movies-tab" class="tab"><a>All Movies</a></li>
+    </ul>
+  </div>
+</nav>
 
 <!-- - - - - - - - - - - - - - -
  - - Watchlist
- - - - - - - - - - - - - - - -->
+ - - - - - - - - - - - - - -  -->
 
 <section id="watchlist">
 	<h2>Watchlist</h2>
-	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+	<div class="movie-cards container">
+		<div class="row">
+
+		</div> <!-- end row -->
+	</div> <!-- end container -->
+
 </section>
 
 <!-- - - - - - - - - - - - - - -
@@ -103,68 +57,59 @@
 
 <section id="history" class="hidden">
 	<h2>History</h2>
-	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+	<div class="movie-cards container">
+		<div class="row">
+
+		</div> <!-- end row -->
+	</div> <!-- end container -->
+
 </section>
 
 <!-- - - - - - - - - - - - - - -
  - - All Movies
- - - - - - - - - - - - - - - -->
+
+ - - - - - - - - - - - - - -  -->
 
 <section id="all-movies" class="hidden">
 	<h2>All Movies</h2>
-	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+	<div class="movie-cards container">
+		<div class="row">
+
+		</div> <!-- end row -->
+	</div> <!-- end container -->
 </section>
 
-
-
-
-
-
-
-
-
-
-
-    <!-- basic card -->
-    <div class="movieContainer container">
-      <div class="row">
-        <div class="col s6 m7 z-depth-1">
-          <h2 class="header movieTitle">Star Wars</h2>
-          <div class="card horizontal small">
-            <div class="card-image">
-              <img src="http://i.imgur.com/ftwwbAg.jpg">
-            </div>
-            <div class="card-stacked">
-              <div class="card-content">
-                <p class="year"><span>Year: </span>1977</p>
-                <p class="actors"><span>Actors: </span>Harrison Ford, Carrie Fisher, Mark Hammil</p>
-                <p class="plot"><span>Plot: </span>Stuff happens in space</p>
-              </div>
-              <div class="card-action">
-                <a href="#">Add to Watch List</a>
-              </div>
-            </div>
-          </div>
-          <span class="new badge" data-badge-caption="stars">4</span>
+<!-- - - - - - - - - - - - - - -
+ - - Card Template
+ - - - - - - - - - - - - - -  -->
+<script id="card-template" type="text/x-handlebars-template">
+  <div class="col m12 l6">
+    <h4 class="header movieTitle">{{Title}}</h4>
+    <div class="card horizontal small">
+      <div class="card-image">
+        <img src="{{Poster}}">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <p class="year"><span>Year: </span>{{Year}}</p>
+          <p class="actors"><span>Actors: </span>{{Actors}}</p>
+          <p class="plot"><span>Plot: </span>{{Plot}}</p>
         </div>
-      </div> <!-- end of row -->
-    </div> <!-- end of card -->
+        <div class="card-action">
+          <a href="#">Add to Watch List</a>
+        </div>
+      </div>
+    </div>
+    <span class="new badge" data-badge-caption="stars">4</span>
+  </div>
+</script> <!-- end card template -->
+
 
 <!-- jQuery -->
-      <script src="bower_components/jquery/dist/jquery.js"></script>
-      <script src="bower_components/materialize/dist/js/materialize.js"></script>
-      <script src="bower_components/handlebars/handlebars.js"></script>
-      <script src="js/app.js"></script>
-    </body>
+<script src="/bower_components/jquery/dist/jquery.js"></script>
+<script src="/bower_components/materialize/dist/js/materialize.js"></script>
+<script src="/bower_components/handlebars/handlebars.js"></script>
+<script src="js/app.js"></script>
+</body>
 
 </html>

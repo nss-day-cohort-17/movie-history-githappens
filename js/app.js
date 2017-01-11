@@ -5,6 +5,7 @@
 
 
 
+
 ////////////////////////////
 // Global Var
 ////////////////////////////
@@ -22,8 +23,11 @@ $(document).ready(function() {
 
 // Add event listeners upon page load
 
+
 $(document).ready(function() {
 	addTabEvents()
+	loadInitialMovies()
+
 })
 
 // Hard-coded page navigation based on tab clicking
@@ -50,8 +54,9 @@ function addTabEvents() {
 
 
 
+
 ////////////////////////////
-// Add Movies
+// Search for Movies
 ////////////////////////////
 
 
@@ -145,3 +150,36 @@ function bindToWatchList () {
     //resets search field to empty string
     $(".userMovieSearch").val("");
   }
+
+////////////////////////////
+// Add Movies
+////////////////////////////
+
+// Queries firebase for initial data
+function loadInitialMovies() {
+	var url = 'https://moviehistory-githappens.firebaseio.com/.json'
+	var movie
+	var p = new Promise(function(res, rej) {
+		$.getJSON(url, (data) => res(data))
+	})
+	p.then(populate)
+}
+
+// Populate page
+function populate(data) {
+	var templateHTML = $('#card-template').html()
+	var template = Handlebars.compile(templateHTML)
+
+	for(var movie in data) {
+		if(data[movie].Watched === true) {
+			card = template(data[movie])
+			$('#history .movie-cards .row').append(card)
+			$('#all-movies .movie-cards .row').append(card)
+		} else {
+			card = template(data[movie])
+			$('#watchlist .movie-cards .row').append(card)
+			$('#all-movies .movie-cards .row').append(card)
+		}
+	}
+}
+

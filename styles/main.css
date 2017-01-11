@@ -13,13 +13,12 @@ Style for movie cards
  ** Helper Classes
  *********************/
 
+
 .hidden {
 	display: none !important;
 }
 
-.badge {
-  margin-bottom: 1em;
-}
+
 
 
 /*************************
@@ -30,4 +29,8 @@ Style for add movie cards
 .searchCard {
   margin-top: 1em;
   padding: 1em;
+    
+  
+  .badge {
+  margin-bottom: 1em;
 }
