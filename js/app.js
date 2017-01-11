@@ -346,9 +346,12 @@ function changeWatchedText() {
 
 $("body").on("click", ".watchedOrNot", function(e) {
   e.preventDefault();
-  console.log(e.target)
+  var evt = e.target;
+  console.log(evt)
   if ($(e.target).hasClass("watched")) {
     console.log("Move me to watchlist")
+        //write that film as watched
+    writeUnwatched(evt);
     $(e.target).removeClass("watched");
     //change text on link
     $(e.target).text("Mark Film As Watched");
@@ -360,8 +363,11 @@ $("body").on("click", ".watchedOrNot", function(e) {
 
     $('#watchlist .row').append(watchedCard);
 
+
   } else {
     $(e.target).addClass("watched");
+        //write that film as unwatched
+    writeWatched(evt);
       //change text on link
     $(e.target).text("Mark as UnWatched");
     //add to watchlist
@@ -373,5 +379,34 @@ $("body").on("click", ".watchedOrNot", function(e) {
     //remove from history
     $(e.target).parentsUntil(".row").remove();
     $('#history  .row').append(unwatchedCard);
+
   }
 });
+
+
+function writeWatched(e) {
+  //get id from card
+  var clickEventOfOld = e;
+  var currentID = $(clickEventOfOld).parent().parent().parent().parent().attr("id");
+  console.log("currentID : ", currentID);
+  $.ajax({
+    url : "https://moviehistory-githappens.firebaseio.com/" + currentID + "/.json",
+    data: JSON.stringify({ Watched: true }),
+    type : 'PATCH',
+    dataType: 'json'
+  });
+}
+
+function writeUnwatched(e) {
+  //get id from card
+  var clickEventOfOld = e;
+  console.log("ClickEvent of Old", $(clickEventOfOld).parent().parent())
+  var currentID = $(clickEventOfOld).parent().parent().parent().parent().attr("id");
+  console.log("currentID : ", currentID);
+  $.ajax({
+    url : "https://moviehistory-githappens.firebaseio.com/" + currentID + "/.json",
+    data: JSON.stringify({ Watched: false }),
+    type : 'PATCH',
+    dataType: 'json'
+  });
+}
