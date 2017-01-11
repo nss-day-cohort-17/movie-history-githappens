@@ -207,4 +207,16 @@ function populate(data) {
 			$('#all-movies .movie-cards .row').append(card)
 		}
 	}
+
+
+}
+
+
+//delete movie from everything
+
+//event listener on page
+$(".movie-cards").on("click", ".removeMovie", deleteMovieFinal);
+
+function deleteMovieFinal(e) {
+  $(this).parentsUntil(".row").remove();
 }

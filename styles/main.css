@@ -50,3 +50,19 @@ Style for add movie cards
 .dismiss:active {
   color: teal;
 }
+
+.removeMovie:hover {
+  color: tomato;
+}
+
+ .removeMovie:active {
+  color: darkred;
+}
+
+.removeMovie {
+  display: block;
+  color: gray;
+  text-align: right;
+  font-size:  .5em;
+
+}
