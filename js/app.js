@@ -7,6 +7,23 @@ addTabEvents()
 loadInitialMovies()
 
 
+// on page load, add movies is hidden
+function hideAddMovies () {
+  $(".addMoviesCard").hide();
+}
+
+hideAddMovies();
+
+//but if add movies is clicked, it will show
+$(".addMoviesLink").click(showAddMovies);
+
+function showAddMovies() {
+  $(".addMoviesCard").show();
+}
+
+// but if click other elements of the navbar, will hide
+$(".hideSearch").click(hideAddMovies);
+
 ////////////////////////////
 // Global Var
 ////////////////////////////
@@ -185,9 +202,11 @@ function populate(data) {
 
 	for(var movie in data) {
 		if(data[movie].Watched === true) {
+
 			card = template(data[movie])
 			$('#history .movie-cards .row').append(card)
 			$('#history .movie-cards .col:last-child').attr('id', movie)
+      $('#history .movie-cards .watchedOrNot').attr('class', "watched");
 			$('#all-movies .movie-cards .row').append(card)
 			$('#all-movies .movie-cards .col:last-child').attr('id', movie)
 		} else {
@@ -202,6 +221,11 @@ function populate(data) {
 			showStarsOnLoad(movie, data[movie].Stars)
 		}
 	}
+
+  //change text to watched
+  changeWatchedText();
+
+
 	$('.star').click((clickEvt) => {
 		updateStarsOnClick(clickEvt);
 	})
@@ -231,7 +255,7 @@ function showStarsOnLoad(uuid, rating) {
 			$(`#${uuid} .star.hollow`).addClass('hidden') // hide filled stars
 			$(`#${uuid} .star.filled`).removeClass('hidden') // show hollow stars
 			break
-	}
+
 }
 
 // Updates the 1-5 star rating on DOM
@@ -282,10 +306,68 @@ function updateRating(uuid, rating) {
 }
 
 //event listener on page
-$(".movie-cards").on("click", ".removeMovie", deleteMovieFinal);
+$("body").on("click", ".removeMovie", deleteMovieFinal);
 
 function deleteMovieFinal(e) {
   //delete from JSON
+  //get id from card
+  var currentID = $(e.target).parent().parent().parent().parent().attr("id");
+  console.log("currentID : ", currentID);
+  $.ajax({
+    url : "https://moviehistory-githappens.firebaseio.com/" + currentID + "/.json",
+    method : "DELETE"
+  });
+
   //deletes from DOM
   $(e.target).parentsUntil(".row").remove();
 }
+
+
+/////////////////////////////
+// Changing movies from watched to unwatched and visa versa
+///////////////////////////
+
+//if movie is watched and want to switch to unwatched,
+function changeWatchedText() {
+  $(".watched").text("Mark as Unwatched")
+}
+
+$("body").on("click", ".watched", function(e) {
+  e.preventDefault();
+  $(e.target).removeClass("watched");
+    //change text on link
+  $(e.target).text("Mark Film As Watched");
+});
+
+    //tell firebase to update
+
+//if movie is UNwatched and want to switch to Watched,
+
+
+$("body").on("click", ".watchedOrNot", function(e) {
+  e.preventDefault();
+  if ($(e.target).hasClass("watchedOrNot.watched")) {
+    console.log("Move me to watchlist")
+    $(e.target).removeClass("watched");
+    //change text on link
+    $(e.target).text("Mark Film As Watched");
+    //add to history
+    var watchedCard = $(e.target).closest(".movieWrapper").html();
+
+      //remove from watchlist
+    $(e.target).parentsUntil(".row").remove();
+
+    $('#watchlist .row').append(watchedCard);
+
+  } else {
+    $(e.target).addClass("watched");
+      //change text on link
+    $(e.target).text("Mark as UnWatched");
+    //add to watchlist
+    var unwatchedCard = $(e.target).closest(".movieWrapper").html();
+
+    //remove from history
+    $(e.target).parentsUntil(".row").remove();
+    $('#history  .row').append(unwatchedCard);
+  }
+});

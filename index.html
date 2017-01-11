@@ -17,22 +17,22 @@
 <nav class="nav-extended">
   <div class="nav-wrapper">
     <a href="#" class="brand-logo">Logo</a>
-    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+    <a href="#" data-activates="mobile-demo" class="button-collapse hideSearch"><i class="material-icons">menu</i></a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a href="sass.html">Add Movie</a></li>
-      <li><a href="badges.html">My Collection</a></li>
-      <li><a href="collapsible.html">Log in</a></li>
+      <li><a href="#" class="addMoviesLink">Add Movie</a></li>
+      <li><a href="#" class="hideSearch">My Collection</a></li>
+      <li><a href="#" class="hideSearch">Log in</a></li>
     </ul>
     <ul class="side-nav" id="mobile-demo">
-      <li><a href="sass.html">Add Movie</a></li>
-      <li><a href="badges.html">My Collection</a></li>
-      <li><a href="collapsible.html">Log in</a></li>
+      <li><a href="#" class="addMoviesLink">Add Movie</a></li>
+      <li><a href="#" class="hideSearch">My Collection</a></li>
+      <li><a href="#" class="hideSearch">Log in</a></li>
     </ul>
 
     <ul id="tabs" class="tabs tabs-transparent">
-      <li id="watchlist-tab" class="tab"><a class="active">Watchlist</a></li>
-      <li id="history-tab" class="tab"><a>History</a></li>
-      <li id="all-movies-tab" class="tab"><a>All Movies</a></li>
+      <li id="watchlist-tab" class="tab hideSearch"><a class="active">Watchlist</a></li>
+      <li id="history-tab" class="tab hideSearch"><a>History</a></li>
+      <li id="all-movies-tab" class="tab hideSearch"><a>All Movies</a></li>
     </ul>
   </div>
 </nav>
@@ -120,22 +120,25 @@
  - - Card Template
  - - - - - - - - - - - - - -  -->
 <script id="card-template" type="text/x-handlebars-template">
-  <div class="col m12 l6">
-    <h4 class="header movieTitle">{{Title}}</h4>
-    <div class="card horizontal small">
-      <div class="card-image">
-        <img src="{{Poster}}">
-      </div>
-      <div class="card-stacked">
-        <div class="card-content">
-          <p class="year"><span>Year: </span>{{Year}}</p>
-          <p class="actors"><span>Actors: </span>{{Actors}}</p>
-          <p class="plot"><span>Plot: </span>{{Plot}}</p>
+  <div class="movieWrapper">
+    <div class="col m12 l6">
+      <h4 class="header movieTitle">{{Title}}</h4>
+      <div class="card horizontal small">
+        <div class="card-image">
+          <img src="{{Poster}}">
         </div>
-        <div class="card-action">
-          <a href="#">Add to Watch List</a>
-          <a class="removeMovie">Remove From History</a>
+        <div class="card-stacked">
+          <div class="card-content">
+            <p class="year"><span>Year: </span>{{Year}}</p>
+            <p class="actors"><span>Actors: </span>{{Actors}}</p>
+            <p class="plot"><span>Plot: </span>{{Plot}}</p>
+          </div>
+          <div class="card-action">
+            <a href="#" class="watchedOrNot">Mark Film as Watched</a>
+            <a class="removeMovie">Remove From History</a>
+          </div>
         </div>
+
       </div>
     </div> <!-- end card -->
     <div class="rating">
@@ -151,6 +154,8 @@
 		  <span class="star star-1 filled hidden" data-value=1>★</span>
 		</div>
   </div> <!-- end col -->
+ </div> <!-- end of movieWrapper -->
+
 </script> <!-- end card template -->
 
 
