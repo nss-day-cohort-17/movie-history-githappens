@@ -64,8 +64,41 @@ Style for add movie cards
 .searchCard {
   margin-top: 1em;
   padding: 1em;
-
+}
 
 .badge {
-	margin-bottom: 1em;
+  margin-bottom: 1em;
+}
+
+.dismiss {
+  display: block;
+  color: gray;
+  text-align: right;
+  font-size: 3em;
+  margin-bottom: -5rem;
+}
+
+.dismiss:hover {
+  color: goldenrod;
+}
+
+.dismiss:active {
+  color: teal;
+}
+
+.removeMovie:hover {
+  color: red !important;
+  font-size: 1em;
+}
+
+ .removeMovie:active {
+  color: darkred !important;
+}
+
+.removeMovie {
+  display: block;
+  color: gray !important;
+  text-align: right;
+  font-size:  .5em;
+
 }

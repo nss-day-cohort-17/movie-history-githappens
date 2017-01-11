@@ -84,8 +84,11 @@ function SearchFactory () {
   console.log("data.Response is: ", data.Response)
     //if movie already in search area, can't do new search
     if (data.Response === "False") {
-      //show error
+      var errorText;
+      errorText = "We're sorry, something didn't work.  Please check your spelling and try again.";
+      $(".addMovieContainer .row").html(errorText);
     } else {
+
       fillCards(data);
     }
   });
@@ -99,7 +102,7 @@ function fillCards(data) {
   console.log(currentMovie);
   var movieData = data;
   var cardData = "";
-  cardData += `<div id="searchCard" class="col s6 m7 z-depth-1">`;
+  cardData += `<div id="searchCard" class="col s6 m7 z-depth-1"><a class="dismiss">X</a>`;
   cardData += `<h2 class="header movieTitle">${movieData.Title}</h2>`;
   cardData += `<div class="card horizontal small">`;
   cardData += `<div class="card-image">`;
@@ -112,7 +115,7 @@ function fillCards(data) {
   cardData += `<span class="new badge" data-badge-caption="Rated">Not Yet</span>`
   cardData += `</div>`;
   //add to card
-  $(".addMovieContainer .row").append(cardData);
+  $(".addMovieContainer .row").html(cardData);
   //binds event handler to newly created card
   bindToWatchList();
 
@@ -121,6 +124,7 @@ function fillCards(data) {
 //function that binds event handler to new card
 function bindToWatchList () {
   $("#toWatchList").click(addToWatchList);
+  $(".dismiss").click(deleteSearchMovies);
 };
 //if want to add to watchlist
   //variable moved to watchlist card
@@ -129,8 +133,12 @@ function bindToWatchList () {
     //removes card from page
     removeSearchCard();
     //adds card object to user json
-    jQuery.post("https://moviehistory-githappens.firebaseio.com/.json", JSON.stringify(currentMovie));
-
+    sendToJSON = new Promise(function(resolve, reject) {
+    jQuery.post("https://moviehistory-githappens.firebaseio.com/.json", JSON.stringify(currentMovie))
+      .done(function(data) {
+        resolve(data);
+      })
+    })
   }
   //added to user json file
   //card removed from add movies container
@@ -141,6 +149,28 @@ function bindToWatchList () {
     //resets search field to empty string
     $(".userMovieSearch").val("");
   }
+
+////////////////////////////
+// Delete Searched Movies
+////////////////////////////
+
+
+
+function deleteSearchMovies(e) {
+  $(this).parent().remove();
+  //resets search field to empty string
+    $(".userMovieSearch").val("");
+    $(".userMovieSearch").blur();
+}
+
+
+
+
+
+
+
+
+
 
 ////////////////////////////
 // Add Movies
@@ -163,6 +193,8 @@ function populate(data) {
 
 	for(var movie in data) {
 		if(data[movie].Watched === true) {
+      console.log("data[movie]: ", data[movie]);
+      console.log("data[movie]: ", data[movie].name)
 			card = template(data[movie])
 			$('#history .movie-cards .row').append(card)
 			$('#history .movie-cards .col:last-child').attr('id', movie)
@@ -190,15 +222,11 @@ function populate(data) {
 	})
 }
 
+//event listener on page
+$(".movie-cards").on("click", ".removeMovie", deleteMovieFinal);
 
-
-
-
-
-
-
-
-
-
-
-
+function deleteMovieFinal(e) {
+  //delete from JSON
+  //deletes from DOM
+  $(e.target).parentsUntil(".row").remove();
+}
