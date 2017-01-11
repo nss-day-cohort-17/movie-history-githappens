@@ -198,10 +198,40 @@ function populate(data) {
 			$('#all-movies .movie-cards .row').append(card)
 			$('#all-movies .movie-cards .col:last-child').attr('id', movie)
 		}
+		if (data[movie].Stars != null) {
+			showStarsOnLoad(movie, data[movie].Stars)
+		}
 	}
 	$('.star').click((clickEvt) => {
 		updateStarsOnClick(clickEvt);
 	})
+}
+
+function showStarsOnLoad(uuid, rating) {
+	$(`#${uuid} .star.filled`).addClass('hidden') // hide filled stars
+	$(`#${uuid} .star.hollow`).removeClass('hidden') // show hollow stars
+	switch(rating) {
+		case 1:
+			$(`#${uuid} .star-1.hollow`).addClass('hidden')
+			$(`#${uuid} .star-1.filled`).removeClass('hidden')
+			break
+		case 2:
+			$(`#${uuid} .star-1.hollow, #${uuid} .star-2.hollow`).addClass('hidden')
+			$(`#${uuid} .star-1.filled, #${uuid} .star-2.filled`).removeClass('hidden')
+			break
+		case 3:
+			$(`#${uuid} .star-1.hollow, #${uuid} .star-2.hollow, #${uuid} .star-3.hollow`).addClass('hidden')
+			$(`#${uuid} .star-1.filled, #${uuid} .star-2.filled, #${uuid} .star-3.filled`).removeClass('hidden')
+			break
+		case 4:
+			$(`#${uuid} .star-1.hollow, #${uuid} .star-2.hollow, #${uuid} .star-3.hollow, #${uuid} .star-4.hollow`).addClass('hidden')
+			$(`#${uuid} .star-1.filled, #${uuid} .star-2.filled, #${uuid} .star-3.filled, #${uuid} .star-4.filled`).removeClass('hidden')
+			break
+		case 5:
+			$(`#${uuid} .star.hollow`).addClass('hidden') // hide filled stars
+			$(`#${uuid} .star.filled`).removeClass('hidden') // show hollow stars
+			break
+	}
 }
 
 // Updates the 1-5 star rating on DOM
