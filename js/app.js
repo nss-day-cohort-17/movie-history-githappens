@@ -193,8 +193,6 @@ function populate(data) {
 
 	for(var movie in data) {
 		if(data[movie].Watched === true) {
-      console.log("data[movie]: ", data[movie]);
-      console.log("data[movie]: ", data[movie].name)
 			card = template(data[movie])
 			$('#history .movie-cards .row').append(card)
 			$('#history .movie-cards .col:last-child').attr('id', movie)
@@ -209,17 +207,39 @@ function populate(data) {
 			$('#all-movies .movie-cards .col:last-child').attr('id', movie)
 		}
 	}
-	$('.star').click(function(clickEvt) {
-		var target = clickEvt.target
-		var starVal = $(target).data('value')
-		var uuid = $(target).closest('.col').attr('id')
-		console.log(uuid)
-		$('.star.filled').addClass('hidden')
-		$('.star.hollow').removeClass('hidden')
-		switch(starVal) {
-			case 5:
-		}
+	$('.star').click((clickEvt) => {
+		starListeners(clickEvt);
 	})
+}
+
+function starListeners(clickEvt) {
+	var target = clickEvt.target
+	var starVal = $(target).data('value')
+	var uuid = $(target).closest('.col').attr('id')
+	$(`#${uuid} .star.filled`).addClass('hidden') // hide filled stars
+	$(`#${uuid} .star.hollow`).removeClass('hidden') // show hollow stars
+	switch(starVal) {
+		case 1:
+			$(`#${uuid} .star-1.hollow`).addClass('hidden')
+			$(`#${uuid} .star-1.filled`).removeClass('hidden')
+			break
+		case 2:
+			$(`#${uuid} .star-1.hollow, #${uuid} .star-2.hollow`).addClass('hidden')
+			$(`#${uuid} .star-1.filled, #${uuid} .star-2.filled`).removeClass('hidden')
+			break
+		case 3:
+			$(`#${uuid} .star-1.hollow, #${uuid} .star-2.hollow, #${uuid} .star-3.hollow`).addClass('hidden')
+			$(`#${uuid} .star-1.filled, #${uuid} .star-2.filled, #${uuid} .star-3.filled`).removeClass('hidden')
+			break
+		case 4:
+			$(`#${uuid} .star-1.hollow, #${uuid} .star-2.hollow, #${uuid} .star-3.hollow, #${uuid} .star-4.hollow`).addClass('hidden')
+			$(`#${uuid} .star-1.filled, #${uuid} .star-2.filled, #${uuid} .star-3.filled, #${uuid} .star-4.filled`).removeClass('hidden')
+			break
+		case 5:
+			$(`#${uuid} .star.hollow`).addClass('hidden') // hide filled stars
+			$(`#${uuid} .star.filled`).removeClass('hidden') // show hollow stars
+			break
+	}
 }
 
 //event listener on page
