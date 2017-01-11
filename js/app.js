@@ -202,34 +202,32 @@ function populate(data) {
 
 	for(var movie in data) {
 		if(data[movie].Watched === true) {
-
-			card = template(data[movie])
-			$('#history .movie-cards .row').append(card)
-			$('#history .movie-cards .col:last-child').attr('id', movie)
-      $('#history .movie-cards .watchedOrNot').attr('class', "watched");
-			$('#all-movies .movie-cards .row').append(card)
-			$('#all-movies .movie-cards .col:last-child').attr('id', movie)
-		} else {
-			card = template(data[movie])
-			$(card).attr('id', movie)
-			$('#watchlist .movie-cards .row').append(card)
-			$('#watchlist .movie-cards .col:last-child').attr('id', movie)
-			$('#all-movies .movie-cards .row').append(card)
-			$('#all-movies .movie-cards .col:last-child').attr('id', movie)
+      console.log('watched = true')
+      card = template(data[movie])
+      card = $(card).find('.col').attr('id', movie).closest('.movieWrapper')
+      card = '<div class="moveWrapper">' + card.html() + '</div>'
+      $('#history .row').append(card)
+      $('#all-movies .row').append(card)
+      console.dir(card)
+      changeWatchedText()
+    } else {
+      console.log('watched = false')
+      card = template(data[movie])
+      card = $(card).find('.col').attr('id', movie).closest('.movieWrapper')
+      card = '<div class="moveWrapper">' + card.html() + '</div>'
+      $('#watchlist .row').append(card)
+      $('#all-movies .row').append(card)
+      console.dir(card)
 		}
 		if (data[movie].Stars != null) {
 			showStarsOnLoad(movie, data[movie].Stars)
 		}
 	}
-
-  //change text to watched
-  changeWatchedText();
-
-
 	$('.star').click((clickEvt) => {
 		updateStarsOnClick(clickEvt);
 	})
 }
+
 
 function showStarsOnLoad(uuid, rating) {
 	$(`#${uuid} .star.filled`).addClass('hidden') // hide filled stars
@@ -255,7 +253,7 @@ function showStarsOnLoad(uuid, rating) {
 			$(`#${uuid} .star.hollow`).addClass('hidden') // hide filled stars
 			$(`#${uuid} .star.filled`).removeClass('hidden') // show hollow stars
 			break
-
+	}
 }
 
 // Updates the 1-5 star rating on DOM
@@ -263,6 +261,8 @@ function updateStarsOnClick(clickEvt) {
 	var target = clickEvt.target
 	var starVal = $(target).data('value')
 	var uuid = $(target).closest('.col').attr('id')
+	console.log("starVal", starVal)
+	console.log("uuid", uuid)
 	$(`#${uuid} .star.filled`).addClass('hidden') // hide filled stars
 	$(`#${uuid} .star.hollow`).removeClass('hidden') // show hollow stars
 	switch(starVal) {
@@ -270,11 +270,13 @@ function updateStarsOnClick(clickEvt) {
 			$(`#${uuid} .star-1.hollow`).addClass('hidden')
 			$(`#${uuid} .star-1.filled`).removeClass('hidden')
 			updateRating(uuid, 1)
+			console.log("updateStars case 1")
 			break
 		case 2:
 			$(`#${uuid} .star-1.hollow, #${uuid} .star-2.hollow`).addClass('hidden')
 			$(`#${uuid} .star-1.filled, #${uuid} .star-2.filled`).removeClass('hidden')
 			updateRating(uuid, 2)
+			console.log("updateStars case 2")
 			break
 		case 3:
 			$(`#${uuid} .star-1.hollow, #${uuid} .star-2.hollow, #${uuid} .star-3.hollow`).addClass('hidden')
@@ -370,4 +372,4 @@ $("body").on("click", ".watchedOrNot", function(e) {
     $(e.target).parentsUntil(".row").remove();
     $('#history  .row').append(unwatchedCard);
   }
-});
+})
