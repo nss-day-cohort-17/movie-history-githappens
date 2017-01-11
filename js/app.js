@@ -39,15 +39,6 @@ $(document).ready(function() {
   });
 //Upon focus of user input, add the "active" class to the label
 
-// Add event listeners upon page load
-
-
-$(document).ready(function() {
-	addTabEvents()
-	loadInitialMovies()
-
-})
-
 // Hard-coded page navigation based on tab clicking
 function addTabEvents() {
 	$('#watchlist-tab').click(function() {
@@ -190,14 +181,6 @@ function deleteSearchMovies(e) {
 }
 
 
-
-
-
-
-
-
-
-
 ////////////////////////////
 // Add Movies
 ////////////////////////////
@@ -219,7 +202,7 @@ function populate(data) {
 
 	for(var movie in data) {
 		if(data[movie].Watched === true) {
-      console.log("data[movie]: ", data[movie]);
+
 			card = template(data[movie])
 			$('#history .movie-cards .row').append(card)
 			$('#history .movie-cards .col:last-child').attr('id', movie)
@@ -234,14 +217,93 @@ function populate(data) {
 			$('#all-movies .movie-cards .row').append(card)
 			$('#all-movies .movie-cards .col:last-child').attr('id', movie)
 		}
+		if (data[movie].Stars != null) {
+			showStarsOnLoad(movie, data[movie].Stars)
+		}
 	}
+
   //change text to watched
   changeWatchedText();
 
+
+	$('.star').click((clickEvt) => {
+		updateStarsOnClick(clickEvt);
+	})
 }
 
+function showStarsOnLoad(uuid, rating) {
+	$(`#${uuid} .star.filled`).addClass('hidden') // hide filled stars
+	$(`#${uuid} .star.hollow`).removeClass('hidden') // show hollow stars
+	switch(rating) {
+		case 1:
+			$(`#${uuid} .star-1.hollow`).addClass('hidden')
+			$(`#${uuid} .star-1.filled`).removeClass('hidden')
+			break
+		case 2:
+			$(`#${uuid} .star-1.hollow, #${uuid} .star-2.hollow`).addClass('hidden')
+			$(`#${uuid} .star-1.filled, #${uuid} .star-2.filled`).removeClass('hidden')
+			break
+		case 3:
+			$(`#${uuid} .star-1.hollow, #${uuid} .star-2.hollow, #${uuid} .star-3.hollow`).addClass('hidden')
+			$(`#${uuid} .star-1.filled, #${uuid} .star-2.filled, #${uuid} .star-3.filled`).removeClass('hidden')
+			break
+		case 4:
+			$(`#${uuid} .star-1.hollow, #${uuid} .star-2.hollow, #${uuid} .star-3.hollow, #${uuid} .star-4.hollow`).addClass('hidden')
+			$(`#${uuid} .star-1.filled, #${uuid} .star-2.filled, #${uuid} .star-3.filled, #${uuid} .star-4.filled`).removeClass('hidden')
+			break
+		case 5:
+			$(`#${uuid} .star.hollow`).addClass('hidden') // hide filled stars
+			$(`#${uuid} .star.filled`).removeClass('hidden') // show hollow stars
+			break
 
-//delete movie from everything
+}
+
+// Updates the 1-5 star rating on DOM
+function updateStarsOnClick(clickEvt) {
+	var target = clickEvt.target
+	var starVal = $(target).data('value')
+	var uuid = $(target).closest('.col').attr('id')
+	$(`#${uuid} .star.filled`).addClass('hidden') // hide filled stars
+	$(`#${uuid} .star.hollow`).removeClass('hidden') // show hollow stars
+	switch(starVal) {
+		case 1:
+			$(`#${uuid} .star-1.hollow`).addClass('hidden')
+			$(`#${uuid} .star-1.filled`).removeClass('hidden')
+			updateRating(uuid, 1)
+			break
+		case 2:
+			$(`#${uuid} .star-1.hollow, #${uuid} .star-2.hollow`).addClass('hidden')
+			$(`#${uuid} .star-1.filled, #${uuid} .star-2.filled`).removeClass('hidden')
+			updateRating(uuid, 2)
+			break
+		case 3:
+			$(`#${uuid} .star-1.hollow, #${uuid} .star-2.hollow, #${uuid} .star-3.hollow`).addClass('hidden')
+			$(`#${uuid} .star-1.filled, #${uuid} .star-2.filled, #${uuid} .star-3.filled`).removeClass('hidden')
+			updateRating(uuid, 3)
+			break
+		case 4:
+			$(`#${uuid} .star-1.hollow, #${uuid} .star-2.hollow, #${uuid} .star-3.hollow, #${uuid} .star-4.hollow`).addClass('hidden')
+			$(`#${uuid} .star-1.filled, #${uuid} .star-2.filled, #${uuid} .star-3.filled, #${uuid} .star-4.filled`).removeClass('hidden')
+			updateRating(uuid, 4)
+			break
+		case 5:
+			$(`#${uuid} .star.hollow`).addClass('hidden') // hide filled stars
+			$(`#${uuid} .star.filled`).removeClass('hidden') // show hollow stars
+			updateRating(uuid, 5)
+			break
+	}
+}
+
+// Updates star rating on object
+function updateRating(uuid, rating) {
+	var url = `https://moviehistory-githappens.firebaseio.com/${uuid}.json`
+	$.ajax({
+	  url : url,
+	  data: JSON.stringify({ Stars: rating }),
+	  type : 'PATCH',
+	  dataType: 'json'
+	});
+}
 
 //event listener on page
 $("body").on("click", ".removeMovie", deleteMovieFinal);
