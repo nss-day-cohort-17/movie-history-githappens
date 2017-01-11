@@ -7,6 +7,23 @@ addTabEvents()
 loadInitialMovies()
 
 
+// on page load, add movies is hidden
+function hideAddMovies () {
+  $(".addMoviesCard").hide();
+}
+
+hideAddMovies();
+
+//but if add movies is clicked, it will show
+$(".addMoviesLink").click(showAddMovies);
+
+function showAddMovies() {
+  $(".addMoviesCard").show();
+}
+
+// but if click other elements of the navbar, will hide
+$(".hideSearch").click(hideAddMovies);
+
 ////////////////////////////
 // Global Var
 ////////////////////////////
