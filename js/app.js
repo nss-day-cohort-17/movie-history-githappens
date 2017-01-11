@@ -284,7 +284,8 @@ $("body").on("click", ".watched", function(e) {
 
 $("body").on("click", ".watchedOrNot", function(e) {
   e.preventDefault();
-  if ($(e.target).hasClass("watched")) {
+  if ($(e.target).hasClass("watchedOrNot.watched")) {
+    console.log("Move me to watchlist")
     $(e.target).removeClass("watched");
     //change text on link
     $(e.target).text("Mark Film As Watched");
@@ -304,7 +305,7 @@ $("body").on("click", ".watchedOrNot", function(e) {
     var unwatchedCard = $(e.target).closest(".movieWrapper").html();
 
     //remove from history
-    $(e.target).parentsUntil(".row").remove()
+    $(e.target).parentsUntil(".row").remove();
     $('#history  .row').append(unwatchedCard);
   }
 });
