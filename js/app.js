@@ -218,5 +218,7 @@ function populate(data) {
 $(".movie-cards").on("click", ".removeMovie", deleteMovieFinal);
 
 function deleteMovieFinal(e) {
-  $(this).parentsUntil(".row").remove();
+  //delete from JSON
+  console.log("e.target parents until", $(this).parentsUntil())
+  $(e.target).parentsUntil(".row").remove();
 }

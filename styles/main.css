@@ -52,16 +52,17 @@ Style for add movie cards
 }
 
 .removeMovie:hover {
-  color: tomato;
+  color: red !important;
+  font-size: 1em;
 }
 
  .removeMovie:active {
-  color: darkred;
+  color: darkred !important;
 }
 
 .removeMovie {
   display: block;
-  color: gray;
+  color: gray !important;
   text-align: right;
   font-size:  .5em;
 
