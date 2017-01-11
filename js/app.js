@@ -98,8 +98,9 @@ function SearchFactory () {
 //parsed, and loaded into card(s)
 
 function fillCards(data) {
-  console.log(data);
   currentMovie = data;
+  currentMovie.Watched = false;
+  console.log(currentMovie);
   var movieData = data;
   var cardData = "";
   cardData += `<div id="searchCard" class="col s6 m7 z-depth-1">`;
@@ -132,7 +133,7 @@ function bindToWatchList () {
     //removes card from page
     removeSearchCard();
     //adds card object to user json
-    jQuery.post("https://moviehistory-githappens.firebaseio.com/", currentMovie);
+    jQuery.post("https://moviehistory-githappens.firebaseio.com/.json", JSON.stringify(currentMovie));
 
   }
   //added to user json file
