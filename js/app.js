@@ -79,12 +79,18 @@ function SearchFactory () {
       url : searchUrl
     })
     .done(function(data, t, x) {
-      resolve(data);
+      resolve(data, t), x;
     })
   })
    //return of API stored to a variable
   .then(function(data) {
-  fillCards(data);
+  console.log("data.Response is: ", data.Response)
+    //if movie already in search area, can't do new search
+    if (data.Response === "False") {
+      //show error
+    } else {
+      fillCards(data);
+    }
   });
 }
 
