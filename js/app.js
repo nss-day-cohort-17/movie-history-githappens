@@ -10,6 +10,8 @@
 ////////////////////////////
 
 var userMovieSearch = "star wars";
+var currentMovie;
+var searchMovies;
 
 
 //Allows user input field to update upon user focus
@@ -56,37 +58,45 @@ function addTabEvents() {
 
 //when user enter a movie title
 
-$("#movieSearch").submit(function (e) {
+$("#movieSearch").click(function (e) {
+  console.log("submitting");
   e.preventDefault();
   getUserMovie();
 });
 //text stored
 function getUserMovie(e) {
+  console.log("getting user data")
   userMovieSearch = $(".userMovieSearch").val();
+  searchMovies = new SearchFactory();
 }
 //title taken in to query to API
 
-var searchMovies = new Promise(function (resolve, reject){
-  var searchUrl = "http://www.omdbapi.com/?t=" + userMovieSearch + "&y=&plot=short&r=json";
-  $.ajax({
-    url : searchUrl
-  })
-  .done(function(data, t, x) {
-    resolve(data);
-  })
-})
 //promise to get API
-//return of API stored to a variable
-searchMovies.then(function(data) {
+function SearchFactory () {
+   return new Promise(function (resolve, reject){
+    var searchUrl = "http://www.omdbapi.com/?t=" + userMovieSearch + "&y=&plot=short&r=json";
+    $.ajax({
+      url : searchUrl
+    })
+    .done(function(data, t, x) {
+      resolve(data);
+    })
+  })
+   //return of API stored to a variable
+  .then(function(data) {
   fillCards(data);
-})
+  });
+}
+
+
 //parsed, and loaded into card(s)
 
 function fillCards(data) {
   console.log(data);
+  currentMovie = data;
   var movieData = data;
   var cardData = "";
-  cardData += `<div class="col s6 m7 z-depth-1">`;
+  cardData += `<div id="searchCard" class="col s6 m7 z-depth-1">`;
   cardData += `<h2 class="header movieTitle">${movieData.Title}</h2>`;
   cardData += `<div class="card horizontal small">`;
   cardData += `<div class="card-image">`;
@@ -95,15 +105,36 @@ function fillCards(data) {
   cardData += `<p class="year"><span>Year: </span>${movieData.Year}</p>`;
   cardData += `<p class="actors"><span>Actors: </span>${movieData.Actors}</p>`
   cardData += `<p class="plot"><span>Plot: </span>${movieData.Plot}</p>`;
-  cardData += `</div><div class="card-action"><a href="#">Add to Watch List</a></div></div></div>`;
+  cardData += `</div><div class="card-action"><a id="toWatchList" href="#">Add to Watch List</a></div></div></div>`;
   cardData += `<span class="new badge" data-badge-caption="stars">0</span>`
   cardData += `</div>`;
   //add to card
   $(".addMovieContainer .row").append(cardData);
+  //binds event handler to newly created card
+  bindToWatchList();
 
 }
 
+//function that binds event handler to new card
+function bindToWatchList () {
+  $("#toWatchList").click(addToWatchList);
+};
 //if want to add to watchlist
   //variable moved to watchlist card
+  function addToWatchList() {
+    console.log("add to watchlist");
+    //removes card from page
+    removeSearchCard();
+    //adds card object to user json
+    jQuery.post("https://moviehistory-githappens.firebaseio.com/", currentMovie);
+
+  }
   //added to user json file
   //card removed from add movies container
+  function removeSearchCard() {
+    console.log("remove me");
+    //removes card from page
+    $("#searchCard").remove();
+    //resets search field to empty string
+    $(".userMovieSearch").val("");
+  }
