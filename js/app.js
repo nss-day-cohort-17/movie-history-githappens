@@ -142,8 +142,12 @@ function bindToWatchList () {
     //removes card from page
     removeSearchCard();
     //adds card object to user json
-    jQuery.post("https://moviehistory-githappens.firebaseio.com/.json", JSON.stringify(currentMovie));
-
+    sendToJSON = new Promise(function(resolve, reject) {
+    jQuery.post("https://moviehistory-githappens.firebaseio.com/.json", JSON.stringify(currentMovie))
+      .done(function(data) {
+        resolve(data);
+      })
+    })
   }
   //added to user json file
   //card removed from add movies container
@@ -198,6 +202,8 @@ function populate(data) {
 
 	for(var movie in data) {
 		if(data[movie].Watched === true) {
+      console.log("data[movie]: ", data[movie]);
+      console.log("data[movie]: ", data[movie].name)
 			card = template(data[movie])
 			$('#history .movie-cards .row').append(card)
 			$('#all-movies .movie-cards .row').append(card)
@@ -219,6 +225,6 @@ $(".movie-cards").on("click", ".removeMovie", deleteMovieFinal);
 
 function deleteMovieFinal(e) {
   //delete from JSON
-  console.log("e.target parents until", $(this).parentsUntil())
+  //deletes from DOM
   $(e.target).parentsUntil(".row").remove();
 }
