@@ -206,7 +206,7 @@ function populate(data) {
 			card = template(data[movie])
 			$('#history .movie-cards .row').append(card)
 			$('#history .movie-cards .col:last-child').attr('id', movie)
-      $('#history .movie-cards .watchedOrNot').attr('class', "watched");
+      $('#history .movie-cards .watchedOrNot').attr('class', "watchedOrNot watched");
 			$('#all-movies .movie-cards .row').append(card)
 			$('#all-movies .movie-cards .col:last-child').attr('id', movie)
 
