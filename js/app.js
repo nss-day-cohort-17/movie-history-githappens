@@ -203,7 +203,6 @@ function populate(data) {
 	for(var movie in data) {
 		if(data[movie].Watched === true) {
       console.log("data[movie]: ", data[movie]);
-      console.log("data[movie]: ", data[movie].name)
 			card = template(data[movie])
 			$('#history .movie-cards .row').append(card)
 			$('#history .movie-cards .col:last-child').attr('id', movie)
@@ -230,6 +229,14 @@ $(".movie-cards").on("click", ".removeMovie", deleteMovieFinal);
 
 function deleteMovieFinal(e) {
   //delete from JSON
+  //get id from card
+  var currentID = $(e.target).parent().parent().parent().parent().attr("id");
+  console.log("currentID : ", currentID);
+  $.ajax({
+    url : "https://moviehistory-githappens.firebaseio.com/" + currentID + "/.json",
+    method : "DELETE"
+  });
+
   //deletes from DOM
   $(e.target).parentsUntil(".row").remove();
 }
