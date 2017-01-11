@@ -77,7 +77,31 @@ var searchMovies = new Promise(function (resolve, reject){
 })
 //promise to get API
 //return of API stored to a variable
+searchMovies.then(function(data) {
+  fillCards(data);
+})
 //parsed, and loaded into card(s)
+
+function fillCards(data) {
+  console.log(data);
+  var movieData = data;
+  var cardData = "";
+  cardData += `<div class="col s6 m7 z-depth-1">`;
+  cardData += `<h2 class="header movieTitle">${movieData.Title}</h2>`;
+  cardData += `<div class="card horizontal small">`;
+  cardData += `<div class="card-image">`;
+  cardData += `<img src=${data.Poster}>`;
+  cardData += `</div><div class="card-stacked"><div class="card-content">`;
+  cardData += `<p class="year"><span>Year: </span>${movieData.Year}</p>`;
+  cardData += `<p class="actors"><span>Actors: </span>${movieData.Actors}</p>`
+  cardData += `<p class="plot"><span>Plot: </span>${movieData.Plot}</p>`;
+  cardData += `</div><div class="card-action"><a href="#">Add to Watch List</a></div></div></div>`;
+  cardData += `<span class="new badge" data-badge-caption="stars">0</span>`
+  cardData += `</div>`;
+  //add to card
+  $(".addMovieContainer .row").append(cardData);
+
+}
 
 //if want to add to watchlist
   //variable moved to watchlist card
