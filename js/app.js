@@ -3,7 +3,8 @@
 // App
 ////////////////////////////
 
-
+addTabEvents()
+loadInitialMovies()
 
 
 ////////////////////////////
@@ -104,7 +105,6 @@ function SearchFactory () {
 
 
 //parsed, and loaded into card(s)
-
 function fillCards(data) {
   currentMovie = data;
   currentMovie.Watched = false;
@@ -206,11 +206,16 @@ function populate(data) {
       console.log("data[movie]: ", data[movie].name)
 			card = template(data[movie])
 			$('#history .movie-cards .row').append(card)
+			$('#history .movie-cards .col:last-child').attr('id', movie)
 			$('#all-movies .movie-cards .row').append(card)
+			$('#all-movies .movie-cards .col:last-child').attr('id', movie)
 		} else {
 			card = template(data[movie])
+			$(card).attr('id', movie)
 			$('#watchlist .movie-cards .row').append(card)
+			$('#watchlist .movie-cards .col:last-child').attr('id', movie)
 			$('#all-movies .movie-cards .row').append(card)
+			$('#all-movies .movie-cards .col:last-child').attr('id', movie)
 		}
 	}
 
