@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  	<meta charset="UTF-8">
+  	<title>Movie History</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> <!-- materialize fonts -->
+  	<link rel="stylesheet" type="text/css" href="/bower_components/materialize/dist/css/materialize.css"> <!-- materialize -->
+  	<link rel="stylesheet" href="styles/main.css"> <!-- my stylesheet -->
+  </head>
+  <body>
+
+<!-- - - - - - - - - - - - - - -
+ - -  Nav Bar
+ - - - - - - - - - - - - - -  -->
+
+<nav class="nav-extended">
+  <div class="nav-wrapper">
+    <a href="#" class="brand-logo">Logo</a>
+    <a href="#" data-activates="mobile-demo" class="button-collapse hideSearch"><i class="material-icons">menu</i></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="#" class="addMoviesLink">Add Movie</a></li>
+      <li><a href="#" class="hideSearch">My Collection</a></li>
+      <li><a href="#" class="hideSearch">Log in</a></li>
+    </ul>
+    <ul class="side-nav" id="mobile-demo">
+      <li><a href="#" class="addMoviesLink">Add Movie</a></li>
+      <li><a href="#" class="hideSearch">My Collection</a></li>
+      <li><a href="#" class="hideSearch">Log in</a></li>
+    </ul>
+
+    <ul id="tabs" class="tabs tabs-transparent">
+      <li id="watchlist-tab" class="tab hideSearch"><a class="active">Watchlist</a></li>
+      <li id="history-tab" class="tab hideSearch"><a>History</a></li>
+      <li id="all-movies-tab" class="tab hideSearch"><a>All Movies</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<!-- - - - - - - - - - - - - - -
+ - - ADD MOVIES
+ - - - - - - - - - - - - - -  -->
+
+
+    <div class="addMoviesCard">
+      <div class="row">
+        <form class="col s12">
+          <div class="row z-depth-4 searchCard">
+            <h4>Search for Movies</h4>
+            <div class="input-field col s6">
+              <i class="material-icons prefix">movie</i>
+              <input id="icon_prefix" type="text" class="validate userMovieSearch">
+              <label class="active" for="icon_prefix">Movie Title</label>
+            </div>
+            <div class="input-field col s6">
+               <button id="movieSearch" class="btn waves-effect waves-light col s3" type="submit" name="action">Search
+                <i class="material-icons right">search</i>
+              </button>
+            </div> <!-- end input field -->
+          </div>
+        </form>
+      </div>  <!-- end of outer row -->
+    </div> <!-- end of add movies card
+ -->
+
+<!-- - - - - - - - - - - - - - -
+ - - Container for added movies
+ - - - - - - - - - - - - - -  -->
+
+
+    <div class="addMovieContainer container">
+      <div class="row">
+
+      </div>  <!-- end of outer row -->
+    </div> <!-- end of add movies card
+
+
+
+
+
+
+
+
+
+<!-- - - - - - - - - - - - - - -
+ - - Watchlist
+ - - - - - - - - - - - - - -  -->
+
+<section id="watchlist">
+	<h2>Watchlist</h2>
+	<div class="movie-cards container">
+		<div class="row">
+
+		</div> <!-- end row -->
+	</div> <!-- end container -->
+</section>
+
+<!-- - - - - - - - - - - - - - -
+ - - History
+ - - - - - - - - - - - - - -  -->
+
+<section id="history" class="hidden">
+	<h2>History</h2>
+	<div class="movie-cards container">
+		<div class="row">
+
+		</div> <!-- end row -->
+	</div> <!-- end container -->
+
+</section>
+
+<!-- - - - - - - - - - - - - - -
+ - - All Movies
+ - - - - - - - - - - - - - -  -->
+
+<section id="all-movies" class="hidden">
+	<h2>All Movies</h2>
+	<div class="movie-cards container">
+		<div class="row">
+
+		</div> <!-- end row -->
+	</div> <!-- end container -->
+</section>
+
+<!-- - - - - - - - - - - - - - -
+ - - Card Template
+ - - - - - - - - - - - - - -  -->
+<script id="card-template" type="text/x-handlebars-template">
+  <div class="movieWrapper">
+    <div class="col m12 l6">
+      <h4 class="header movieTitle">{{Title}}</h4>
+      <div class="card horizontal small">
+        <div class="card-image">
+          <img src="{{Poster}}">
+        </div>
+        <div class="card-stacked">
+          <div class="card-content">
+            <p class="year"><span>Year: </span>{{Year}}</p>
+            <p class="actors"><span>Actors: </span>{{Actors}}</p>
+            <p class="plot"><span>Plot: </span>{{Plot}}</p>
+          </div>
+          <div class="card-action">
+            <a href="#" class="watchedOrNot">Mark Film as Watched</a>
+            <a class="removeMovie">Remove From History</a>
+          </div>
+        </div>
+      </div> <!-- end card -->
+      <div class="rating">
+  		  <span class="star-5" data-type='fiveStar' data-value=5>☆</span>
+  		  <span class="star-5 filled hidden">★</span>
+  		  <span class="star-4" data-type='fourStar' data-value=4>☆</span>
+  		  <span class="star-4 filled hidden">★</span>
+  		  <span class="star-3" data-type='threeStar' data-value=3>☆</span>
+  		  <span class="star-3 filled hidden">★</span>
+  		  <span class="star-2 hidden" data-type='twoStar' data-value=2>☆</span>
+  		  <span class="star-2 filled">★</span>
+  		  <span class="star-1 hidden" data-type='oneStar' data-value=1>☆</span>
+  		  <span class="star-1 filled">★</span>
+  		</div>
+    </div> <!-- end col -->
+  </div> <!-- end of movieWrapper -->
+</script> <!-- end card template -->
+
+
+<!-- jQuery -->
+<script src="/bower_components/jquery/dist/jquery.js"></script>
+<script src="/bower_components/materialize/dist/js/materialize.js"></script>
+<script src="/bower_components/handlebars/handlebars.js"></script>
+<script src="js/app.js"></script>
+</body>
+
+</html>
