@@ -22,15 +22,6 @@ $(document).ready(function() {
   });
 //Upon focus of user input, add the "active" class to the label
 
-// Add event listeners upon page load
-
-
-$(document).ready(function() {
-	addTabEvents()
-	loadInitialMovies()
-
-})
-
 // Hard-coded page navigation based on tab clicking
 function addTabEvents() {
 	$('#watchlist-tab').click(function() {
@@ -186,5 +177,28 @@ function populate(data) {
 			$('#all-movies .movie-cards .col:last-child').attr('id', movie)
 		}
 	}
+	$('.star').click(function(clickEvt) {
+		var target = clickEvt.target
+		var starVal = $(target).data('value')
+		var uuid = $(target).closest('.col').attr('id')
+		console.log(uuid)
+		$('.star.filled').addClass('hidden')
+		$('.star.hollow').removeClass('hidden')
+		switch(starVal) {
+			case 5:
+		}
+	})
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
