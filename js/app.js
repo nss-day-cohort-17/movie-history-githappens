@@ -164,14 +164,6 @@ function deleteSearchMovies(e) {
 }
 
 
-
-
-
-
-
-
-
-
 ////////////////////////////
 // Add Movies
 ////////////////////////////
@@ -208,11 +200,12 @@ function populate(data) {
 		}
 	}
 	$('.star').click((clickEvt) => {
-		starListeners(clickEvt);
+		updateStarsOnClick(clickEvt);
 	})
 }
 
-function starListeners(clickEvt) {
+// Updates the 1-5 star rating on DOM
+function updateStarsOnClick(clickEvt) {
 	var target = clickEvt.target
 	var starVal = $(target).data('value')
 	var uuid = $(target).closest('.col').attr('id')
@@ -222,24 +215,40 @@ function starListeners(clickEvt) {
 		case 1:
 			$(`#${uuid} .star-1.hollow`).addClass('hidden')
 			$(`#${uuid} .star-1.filled`).removeClass('hidden')
+			updateRating(uuid, 1)
 			break
 		case 2:
 			$(`#${uuid} .star-1.hollow, #${uuid} .star-2.hollow`).addClass('hidden')
 			$(`#${uuid} .star-1.filled, #${uuid} .star-2.filled`).removeClass('hidden')
+			updateRating(uuid, 2)
 			break
 		case 3:
 			$(`#${uuid} .star-1.hollow, #${uuid} .star-2.hollow, #${uuid} .star-3.hollow`).addClass('hidden')
 			$(`#${uuid} .star-1.filled, #${uuid} .star-2.filled, #${uuid} .star-3.filled`).removeClass('hidden')
+			updateRating(uuid, 3)
 			break
 		case 4:
 			$(`#${uuid} .star-1.hollow, #${uuid} .star-2.hollow, #${uuid} .star-3.hollow, #${uuid} .star-4.hollow`).addClass('hidden')
 			$(`#${uuid} .star-1.filled, #${uuid} .star-2.filled, #${uuid} .star-3.filled, #${uuid} .star-4.filled`).removeClass('hidden')
+			updateRating(uuid, 4)
 			break
 		case 5:
 			$(`#${uuid} .star.hollow`).addClass('hidden') // hide filled stars
 			$(`#${uuid} .star.filled`).removeClass('hidden') // show hollow stars
+			updateRating(uuid, 5)
 			break
 	}
+}
+
+// Updates star rating on object
+function updateRating(uuid, rating) {
+	var url = `https://moviehistory-githappens.firebaseio.com/${uuid}.json`
+	$.ajax({
+	  url : url,
+	  data: JSON.stringify({ Stars: rating }),
+	  type : 'PATCH',
+	  dataType: 'json'
+	});
 }
 
 //event listener on page
