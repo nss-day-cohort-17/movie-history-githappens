@@ -106,7 +106,7 @@ function fillCards(data) {
   cardData += `<p class="actors"><span>Actors: </span>${movieData.Actors}</p>`
   cardData += `<p class="plot"><span>Plot: </span>${movieData.Plot}</p>`;
   cardData += `</div><div class="card-action"><a id="toWatchList" href="#">Add to Watch List</a></div></div></div>`;
-  cardData += `<span class="new badge" data-badge-caption="stars">0</span>`
+  cardData += `<span class="new badge" data-badge-caption="Rated">Not Yet</span>`
   cardData += `</div>`;
   //add to card
   $(".addMovieContainer .row").append(cardData);
