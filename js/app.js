@@ -32,53 +32,28 @@ function addTabEvents() {
 
 // Queries firebase for initial data
 function loadInitialMovies() {
-	var watchlistUrl = 'https://moviehistory-githappens.firebaseio.com/watchlist.json'
-	var historyUrl = 'https://moviehistory-githappens.firebaseio.com/history.json'
+	var url = 'https://moviehistory-githappens.firebaseio.com/.json'
 	var movie
-	var p1 = new Promise(function(res, rej) {
-		$.getJSON(watchlistUrl, (data) => res(data))
+	var p = new Promise(function(res, rej) {
+		$.getJSON(url, (data) => res(data))
 	})
-	p1.then(populateWatchlist)
-	var p2 = new Promise(function(res, rej) {
-		$.getJSON(historyUrl, (data) => res(data))
-	})
-	p2.then(populateHistory)
+	p.then(populate)
 }
 
-// Uses handlebar template to create cards
-function populateWatchlist(watchlist) {
+// Populate page
+function populate(data) {
 	var templateHTML = $('#card-template').html()
 	var template = Handlebars.compile(templateHTML)
 
-	for(var movie in watchlist) {
-		card = template(watchlist[movie])
-		$('#watchlist .movie-cards .row').append(card)
-		$('#all-movies .movie-cards .row').append(card)
+	for(var movie in data) {
+		if(data[movie].Watched === true) {
+			card = template(data[movie])
+			$('#history .movie-cards .row').append(card)
+			$('#all-movies .movie-cards .row').append(card)
+		} else {
+			card = template(data[movie])
+			$('#watchlist .movie-cards .row').append(card)
+			$('#all-movies .movie-cards .row').append(card)
+		}
 	}
 }
-
-// Uses handlebar template to create cards
-function populateHistory(history) {
-	var templateHTML = $('#card-template').html()
-	var template = Handlebars.compile(templateHTML)
-
-	for(var movie in history) {
-		card = template(history[movie])
-		$('#history .movie-cards .row').append(card)
-		$('#all-movies .movie-cards .row').append(card)
-	}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
