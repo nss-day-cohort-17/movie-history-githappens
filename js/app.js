@@ -202,29 +202,30 @@ function populate(data) {
 
 	for(var movie in data) {
 		if(data[movie].Watched === true) {
-
-			card = template(data[movie])
-			$('#history .movie-cards .row').append(card)
-			$('#history .movie-cards .col:last-child').attr('id', movie)
-      $('#history .movie-cards .watchedOrNot').attr('class', "watchedOrNot watched");
-			$('#all-movies .movie-cards .row').append(card)
-			$('#all-movies .movie-cards .col:last-child').attr('id', movie)
-
+      console.log('watched = true')
+      card = template(data[movie])
+      card = $(card).find('.col').attr('id', movie).closest('.movieWrapper')
+      card = '<div class="movieWrapper">' + card.html() + '</div>'
+      $('#history .row').append(card)
+      $('#all-movies .row').append(card)
+      console.dir(card)
       //change text to watched
+      // Add class watched to the movies in 'history' after loading them in
+      $('#history .movie-cards .watchedOrNot').addClass("watched");
       changeWatchedText();
-		} else {
-			card = template(data[movie])
-			$(card).attr('id', movie)
-			$('#watchlist .movie-cards .row').append(card)
-			$('#watchlist .movie-cards .col:last-child').attr('id', movie)
-			$('#all-movies .movie-cards .row').append(card)
-			$('#all-movies .movie-cards .col:last-child').attr('id', movie)
-		}
-		if (data[movie].Stars != null) {
-			showStarsOnLoad(movie, data[movie].Stars)
-		}
-	}
-
+    } else {
+      console.log('watched = false')
+      card = template(data[movie])
+      card = $(card).find('.col').attr('id', movie).closest('.movieWrapper')
+      card = '<div class="movieWrapper">' + card.html() + '</div>'
+      $('#watchlist .row').append(card)
+      $('#all-movies .row').append(card)
+      console.dir(card)
+    }
+    if (data[movie].Stars != null) {
+      showStarsOnLoad(movie, data[movie].Stars)
+    }
+  }
 	$('.star').click((clickEvt) => {
 		updateStarsOnClick(clickEvt);
 	})
@@ -342,12 +343,10 @@ function changeWatchedText() {
     //tell firebase to update
 
 //if movie is UNwatched and want to switch to Watched,
-
-
 $("body").on("click", ".watchedOrNot", function(e) {
   e.preventDefault();
   var evt = e.target;
-  console.log(evt)
+  console.log("event target", evt)
   if ($(e.target).hasClass("watched")) {
     console.log("Move me to watchlist")
         //write that film as watched
