@@ -127,37 +127,39 @@
  - - Card Template
  - - - - - - - - - - - - - -  -->
 <script id="card-template" type="text/x-handlebars-template">
-  <div class="col m12 l6">
-    <h4 class="header movieTitle">{{Title}}</h4>
-    <div class="card horizontal small">
-      <div class="card-image">
-        <img src="{{Poster}}">
-      </div>
-      <div class="card-stacked">
-        <div class="card-content">
-          <p class="year"><span>Year: </span>{{Year}}</p>
-          <p class="actors"><span>Actors: </span>{{Actors}}</p>
-          <p class="plot"><span>Plot: </span>{{Plot}}</p>
+  <div class="movieWrapper">
+    <div class="col m12 l6">
+      <h4 class="header movieTitle">{{Title}}</h4>
+      <div class="card horizontal small">
+        <div class="card-image">
+          <img src="{{Poster}}">
         </div>
-        <div class="card-action">
-          <a href="#">Add to Watch List</a>
-          <a class="removeMovie">Remove From History</a>
+        <div class="card-stacked">
+          <div class="card-content">
+            <p class="year"><span>Year: </span>{{Year}}</p>
+            <p class="actors"><span>Actors: </span>{{Actors}}</p>
+            <p class="plot"><span>Plot: </span>{{Plot}}</p>
+          </div>
+          <div class="card-action">
+            <a href="#" class="watchedOrNot">Mark Film as Watched</a>
+            <a class="removeMovie">Remove From History</a>
+          </div>
         </div>
-      </div>
-    </div> <!-- end card -->
-    <div class="rating">
-		  <span class="star-5" data-type='fiveStar' data-value=5>☆</span>
-		  <span class="star-5 filled hidden">★</span>
-		  <span class="star-4" data-type='fourStar' data-value=4>☆</span>
-		  <span class="star-4 filled hidden">★</span>
-		  <span class="star-3" data-type='threeStar' data-value=3>☆</span>
-		  <span class="star-3 filled hidden">★</span>
-		  <span class="star-2 hidden" data-type='twoStar' data-value=2>☆</span>
-		  <span class="star-2 filled">★</span>
-		  <span class="star-1 hidden" data-type='oneStar' data-value=1>☆</span>
-		  <span class="star-1 filled">★</span>
-		</div>
-  </div> <!-- end col -->
+      </div> <!-- end card -->
+      <div class="rating">
+  		  <span class="star-5" data-type='fiveStar' data-value=5>☆</span>
+  		  <span class="star-5 filled hidden">★</span>
+  		  <span class="star-4" data-type='fourStar' data-value=4>☆</span>
+  		  <span class="star-4 filled hidden">★</span>
+  		  <span class="star-3" data-type='threeStar' data-value=3>☆</span>
+  		  <span class="star-3 filled hidden">★</span>
+  		  <span class="star-2 hidden" data-type='twoStar' data-value=2>☆</span>
+  		  <span class="star-2 filled">★</span>
+  		  <span class="star-1 hidden" data-type='oneStar' data-value=1>☆</span>
+  		  <span class="star-1 filled">★</span>
+  		</div>
+    </div> <!-- end col -->
+  </div> <!-- end of movieWrapper -->
 </script> <!-- end card template -->
 
 

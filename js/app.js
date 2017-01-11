@@ -223,6 +223,7 @@ function populate(data) {
 			card = template(data[movie])
 			$('#history .movie-cards .row').append(card)
 			$('#history .movie-cards .col:last-child').attr('id', movie)
+      $('#history .movie-cards .watchedOrNot').attr('class', "watched");
 			$('#all-movies .movie-cards .row').append(card)
 			$('#all-movies .movie-cards .col:last-child').attr('id', movie)
 		} else {
@@ -234,7 +235,8 @@ function populate(data) {
 			$('#all-movies .movie-cards .col:last-child').attr('id', movie)
 		}
 	}
-
+  //change text to watched
+  changeWatchedText();
 
 }
 
@@ -242,7 +244,7 @@ function populate(data) {
 //delete movie from everything
 
 //event listener on page
-$(".movie-cards").on("click", ".removeMovie", deleteMovieFinal);
+$("body").on("click", ".removeMovie", deleteMovieFinal);
 
 function deleteMovieFinal(e) {
   //delete from JSON
@@ -257,3 +259,52 @@ function deleteMovieFinal(e) {
   //deletes from DOM
   $(e.target).parentsUntil(".row").remove();
 }
+
+
+/////////////////////////////
+// Changing movies from watched to unwatched and visa versa
+///////////////////////////
+
+//if movie is watched and want to switch to unwatched,
+function changeWatchedText() {
+  $(".watched").text("Mark as Unwatched")
+}
+
+$("body").on("click", ".watched", function(e) {
+  e.preventDefault();
+  $(e.target).removeClass("watched");
+    //change text on link
+  $(e.target).text("Mark Film As Watched");
+});
+
+    //tell firebase to update
+
+//if movie is UNwatched and want to switch to Watched,
+
+
+$("body").on("click", ".watchedOrNot", function(e) {
+  e.preventDefault();
+  if ($(e.target).hasClass("watched")) {
+    $(e.target).removeClass("watched");
+    //change text on link
+    $(e.target).text("Mark Film As Watched");
+    //add to history
+    var watchedCard = $(e.target).closest(".movieWrapper").html();
+
+      //remove from watchlist
+    $(e.target).parentsUntil(".row").remove();
+
+    $('#watchlist .row').append(watchedCard);
+
+  } else {
+    $(e.target).addClass("watched");
+      //change text on link
+    $(e.target).text("Mark as UnWatched");
+    //add to watchlist
+    var unwatchedCard = $(e.target).closest(".movieWrapper").html();
+
+    //remove from history
+    $(e.target).parentsUntil(".row").remove()
+    $('#history  .row').append(unwatchedCard);
+  }
+});
