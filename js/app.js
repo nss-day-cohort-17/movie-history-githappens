@@ -92,8 +92,11 @@ function SearchFactory () {
   console.log("data.Response is: ", data.Response)
     //if movie already in search area, can't do new search
     if (data.Response === "False") {
-      //show error
+      var errorText;
+      errorText = "We're sorry, something didn't work.  Please check your spelling and try again.";
+      $(".addMovieContainer .row").html(errorText);
     } else {
+
       fillCards(data);
     }
   });
@@ -121,7 +124,7 @@ function fillCards(data) {
   cardData += `<span class="new badge" data-badge-caption="Rated">Not Yet</span>`
   cardData += `</div>`;
   //add to card
-  $(".addMovieContainer .row").append(cardData);
+  $(".addMovieContainer .row").html(cardData);
   //binds event handler to newly created card
   bindToWatchList();
 
