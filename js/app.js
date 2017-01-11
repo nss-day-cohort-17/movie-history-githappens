@@ -2,11 +2,9 @@
 // App
 ////////////////////////////
 
+addTabEvents()
+loadInitialMovies()
 
-$(document).ready(function() {
-	addTabEvents()
-	loadInitialMovies()
-})
 
 // Hard-coded page navigation based on tab clicking
 function addTabEvents() {
