@@ -108,7 +108,7 @@ function fillCards(data) {
   console.log(currentMovie);
   var movieData = data;
   var cardData = "";
-  cardData += `<div id="searchCard" class="col s6 m7 z-depth-1">`;
+  cardData += `<div id="searchCard" class="col s6 m7 z-depth-1"><a class="dismiss">X</a>`;
   cardData += `<h2 class="header movieTitle">${movieData.Title}</h2>`;
   cardData += `<div class="card horizontal small">`;
   cardData += `<div class="card-image">`;
@@ -130,6 +130,7 @@ function fillCards(data) {
 //function that binds event handler to new card
 function bindToWatchList () {
   $("#toWatchList").click(addToWatchList);
+  $(".dismiss").click(deleteSearchMovies);
 };
 //if want to add to watchlist
   //variable moved to watchlist card
@@ -150,6 +151,28 @@ function bindToWatchList () {
     //resets search field to empty string
     $(".userMovieSearch").val("");
   }
+
+////////////////////////////
+// Delete Searched Movies
+////////////////////////////
+
+
+
+function deleteSearchMovies(e) {
+  $(this).parent().remove();
+  //resets search field to empty string
+    $(".userMovieSearch").val("");
+    $(".userMovieSearch").blur();
+}
+
+
+
+
+
+
+
+
+
 
 ////////////////////////////
 // Add Movies
@@ -182,4 +205,3 @@ function populate(data) {
 		}
 	}
 }
-
