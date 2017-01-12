@@ -1,11 +1,9 @@
-
 ////////////////////////////
 // App
 ////////////////////////////
 
 addTabEvents()
 loadInitialMovies()
-
 
 // on page load, add movies is hidden
 function hideAddMovies () {
@@ -39,7 +37,9 @@ $(document).ready(function() {
   });
 //Upon focus of user input, add the "active" class to the label
 
+
 // Hard-coded page navigation based on tab clicking
+// Function is called at the top of this script
 function addTabEvents() {
 	$('#watchlist-tab').click(function() {
 		$('#tabs a').removeClass('active')
@@ -61,17 +61,11 @@ function addTabEvents() {
 	})
 }
 
-
-
-
 ////////////////////////////
 // Search for Movies
 ////////////////////////////
 
-
-
-//when user enter a movie title
-
+//when user enters a movie title
 $("#movieSearch").click(function (e) {
   console.log("submitting");
   e.preventDefault();
@@ -105,14 +99,13 @@ function SearchFactory () {
       errorText = "We're sorry, something didn't work.  Please check your spelling and try again.";
       $(".addMovieContainer .row").html(errorText);
     } else {
-
       fillCards(data);
     }
   });
 }
 
-
 //parsed, and loaded into card(s)
+// NOTE: console log in this function
 function fillCards(data) {
   currentMovie = data;
   currentMovie.Watched = false;
@@ -135,7 +128,6 @@ function fillCards(data) {
   $(".addMovieContainer .row").html(cardData);
   //binds event handler to newly created card
   bindToWatchList();
-
 }
 
 //function that binds event handler to new card
