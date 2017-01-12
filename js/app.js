@@ -241,8 +241,6 @@ function insertMovieHistory(template, movie, data) {
 // This function takes a movie ID and rating
 // This displays the correct number of stars on load
 function showStarsOnLoad(uuid, rating) {
-	$(`#${uuid} .star.filled`).addClass('hidden') // hide filled stars
-	$(`#${uuid} .star.hollow`).removeClass('hidden') // show hollow stars
 	switch(rating) {
 		case 1:
 			$(`#${uuid} .star-1.hollow`).addClass('hidden')
@@ -267,7 +265,7 @@ function showStarsOnLoad(uuid, rating) {
   }
 }
 
-// Updates the 1-5 star rating on DOM
+// Updates the 1-5 star rating on DOM and updates data in firebase
 function updateStarsOnClick(clickEvt) {
 	var target = clickEvt.target
 	var starVal = $(target).data('value')
@@ -303,7 +301,7 @@ function updateStarsOnClick(clickEvt) {
 	}
 }
 
-// Updates star rating on object
+// Updates star rating on object using patch
 function updateRating(uuid, rating) {
 	var url = `https://moviehistory-githappens.firebaseio.com/${uuid}.json`
 	$.ajax({
@@ -332,9 +330,9 @@ function deleteMovieFinal(e) {
 }
 
 
-/////////////////////////////
+///////////////////////////////////////////////////////////
 // Changing movies from watched to unwatched and visa versa
-///////////////////////////
+//////////////////////////////////////////////////////////
 
 //if movie is watched and want to switch to unwatched for page load,
 function changeWatchedText() {
@@ -348,7 +346,7 @@ function changeWatchedText() {
 //   $(e.target).text("Mark Film As Watched");
 // });
 
-    //tell firebase to update
+//tell firebase to update
 
 //if movie is UNwatched and want to switch to Watched,
 $("body").on("click", ".watchedOrNot", function(e) {
@@ -357,7 +355,7 @@ $("body").on("click", ".watchedOrNot", function(e) {
   console.log("event target", evt)
   if ($(e.target).hasClass("watched")) {
     console.log("Move me to watchlist")
-        //write that film as watched
+    //write that film as watched
     writeUnwatched(evt);
     $(e.target).removeClass("watched");
     //change text on link
@@ -365,7 +363,7 @@ $("body").on("click", ".watchedOrNot", function(e) {
     //add to history
     var watchedCard = $(e.target).closest(".movieWrapper").html();
     watchedCard = "<div class='movieWrapper'>" + watchedCard + "</div>";
-      //remove from watchlist
+    //remove from watchlist
     $(e.target).parentsUntil(".row").remove();
 
     $('#watchlist .row').append(watchedCard);
@@ -373,9 +371,9 @@ $("body").on("click", ".watchedOrNot", function(e) {
 
   } else {
     $(e.target).addClass("watched");
-        //write that film as unwatched
+    //write that film as unwatched
     writeWatched(evt);
-      //change text on link
+    //change text on link
     $(e.target).text("Mark as UnWatched");
     //add to watchlist
     var unwatchedCard = $(e.target).closest(".movieWrapper").html();
@@ -391,6 +389,7 @@ $("body").on("click", ".watchedOrNot", function(e) {
 });
 
 
+// Uses patch to update watched attribute
 function writeWatched(e) {
   //get id from card
   var clickEventOfOld = e;
@@ -404,6 +403,7 @@ function writeWatched(e) {
   });
 }
 
+// Uses patch to update watched attribute
 function writeUnwatched(e) {
   //get id from card
   var clickEventOfOld = e;
