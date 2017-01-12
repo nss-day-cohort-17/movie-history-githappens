@@ -166,12 +166,12 @@ function removeSearchCard() {
 // Delete Searched Movies
 ////////////////////////////
 
-
+// This function deletes the search result
 function deleteSearchMovies(e) {
   $(this).parent().remove();
   //resets search field to empty string
-    $(".userMovieSearch").val("");
-    $(".userMovieSearch").blur();
+  $(".userMovieSearch").val("");
+  $(".userMovieSearch").blur();
 }
 
 ////////////////////////////
@@ -179,6 +179,7 @@ function deleteSearchMovies(e) {
 ////////////////////////////
 
 // Queries firebase for initial data
+// Upon successful fetch of data, calls populate function
 function loadInitialMovies() {
 	var url = 'https://moviehistory-githappens.firebaseio.com/.json'
 	var movie
@@ -188,34 +189,22 @@ function loadInitialMovies() {
 	p.then(populate)
 }
 
-// Populate page
+// Loops through all saved movies of user
+// Tests to see if they have been watched or not
+// Loads the movie card (from handlebar template) into correct section
+// Adds event listener to stars after page population
 function populate(data) {
+  // Grab and process handlebar template
 	var templateHTML = $('#card-template').html()
 	var template = Handlebars.compile(templateHTML)
 
 	for(var movie in data) {
 		if(data[movie].Watched === true) {
-      console.log('watched = true')
-      card = template(data[movie])
-      card = $(card).find('.col').attr('id', movie).closest('.movieWrapper')
-      card = '<div class="movieWrapper">' + card.html() + '</div>'
-      $('#history .row').append(card)
-      $('#all-movies .row').append(card)
-      console.dir(card)
-      //change text to watched
-      // Add class watched to the movies in 'history' after loading them in
-      $('#history .movie-cards .watchedOrNot').addClass("watched");
-      changeWatchedText();
+      insertMovieWatchlist(template, movie, data)
     } else {
-      console.log('watched = false')
-      card = template(data[movie])
-      card = $(card).find('.col').attr('id', movie).closest('.movieWrapper')
-      card = '<div class="movieWrapper">' + card.html() + '</div>'
-      $('#watchlist .row').append(card)
-      $('#all-movies .row').append(card)
-      console.dir(card)
+      insertMovieHistory(template, movie, data)
     }
-    if (data[movie].Stars != null) {
+    if (data[movie].Stars != null) { // If movie has stored star rating...
       showStarsOnLoad(movie, data[movie].Stars)
     }
   }
@@ -224,6 +213,33 @@ function populate(data) {
 	})
 }
 
+// This function shows a movie on the watchlist page
+// It takes a handlebars template, the movie ID, and json file as args
+function insertMovieWatchlist(template, movie, data) {
+  card = template(data[movie]) // generate html using data and template
+  // Goes down to ".col" level and adds ID, then returns the whole thing
+  card = $(card).find('.col').attr('id', movie).closest('.movieWrapper')
+  card = '<div class="movieWrapper">' + card.html() + '</div>' // Hard code missing parent el
+  $('#history .row').append(card)
+  $('#all-movies .row').append(card)
+
+  // Add class watched to the movies in 'history' after loading them in
+  $('#history .movie-cards .watchedOrNot').addClass("watched");
+  changeWatchedText();
+}
+
+// This function shows a movie on the history page
+// It takes a handlebars template, the movie ID, and json file as args
+function insertMovieHistory(template, movie, data) {
+  card = template(data[movie])
+  card = $(card).find('.col').attr('id', movie).closest('.movieWrapper')
+  card = '<div class="movieWrapper">' + card.html() + '</div>'
+  $('#watchlist .row').append(card)
+  $('#all-movies .row').append(card)
+}
+
+// This function takes a movie ID and rating
+// This displays the correct number of stars on load
 function showStarsOnLoad(uuid, rating) {
 	$(`#${uuid} .star.filled`).addClass('hidden') // hide filled stars
 	$(`#${uuid} .star.hollow`).removeClass('hidden') // show hollow stars
@@ -248,7 +264,6 @@ function showStarsOnLoad(uuid, rating) {
 			$(`#${uuid} .star.hollow`).addClass('hidden') // hide filled stars
 			$(`#${uuid} .star.filled`).removeClass('hidden') // show hollow stars
 			break
-
   }
 }
 
