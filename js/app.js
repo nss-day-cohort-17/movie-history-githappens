@@ -23,7 +23,7 @@ firebase.initializeApp({
 
 firebase.auth().onAuthStateChanged((e) => {
   if(e !== null) {
-    loadInitialMovies()
+    loadInitialMovies(e)
   }
 })
 
@@ -250,8 +250,8 @@ function deleteSearchMovies(e) {
 
 // Queries firebase for initial data
 // Upon successful fetch of data, calls populate function
-function loadInitialMovies() {
-	var url = 'https://moviehistory-githappens.firebaseio.com/.json'
+function loadInitialMovies(e) {
+	var url = `https://moviehistory-githappens.firebaseio.com/${e.uid}.json`
 	var movie
 	var p = new Promise(function(res, rej) {
 		$.getJSON(url, (data) => res(data))
@@ -268,7 +268,7 @@ function populate(data) {
 	var templateHTML = $('#card-template').html()
 	var template = Handlebars.compile(templateHTML)
 
-	for(var user in data) {
+	for(var movie in data) {
 		if(data[movie].Watched === true) {
       insertMovieHistory(template, movie, data)
     } else {
