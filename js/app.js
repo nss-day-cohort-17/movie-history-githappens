@@ -8,6 +8,10 @@ $(".button-collapse").sideNav({
   closeOnClick: true, // Closes side-nav on <a> clicks, useful for
   draggable: true // Choose whether you can drag to open on touch screens
 });
+// Event listener for logout
+$('.logout').click(() => {
+  firebase.auth().signOut()
+})
 
 ////////////////////////////
 // Firebase Auth
@@ -72,7 +76,7 @@ var uid;
 //Allows user input field to update upon user focus
 $(document).ready(function() {
     Materialize.updateTextFields();
-  });
+});
 //Upon focus of user input, add the "active" class to the label
 
 
