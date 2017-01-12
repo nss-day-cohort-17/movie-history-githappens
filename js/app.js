@@ -167,18 +167,16 @@ function dynamicallyAddToWatchList(data) {
   // Grab and process handlebar template
   var templateHTML = $('#card-template').html()
   var template = Handlebars.compile(templateHTML)
-  console.log("trying to add movie to watchlist")
-  insertMovieWatchlist(template, data.name, currentMovie)
-  function insertMovieWatchlist(template, movie, data) {
-  card = template(currentMovie)
+  // console.log("trying to add movie to watchlist")
+  insertMovieWatchlistSearch(template, data.name, currentMovie)
+  function insertMovieWatchlistSearch(template, movie, data) {
 
-  card = $(card).find('.col').attr('id', movie).closest('.movieWrapper')
-  card = '<div class="movieWrapper">' + card.html() + '</div>'
-  $('#watchlist .row').append(card)
-  $('#all-movies .row').append(card)
+    card = template(currentMovie)
+    card = $(card).find('.col').attr('id', movie).closest('.movieWrapper')
+    card = '<div class="movieWrapper">' + card.html() + '</div>'
+    $('#watchlist .row').append(card)
+    $('#all-movies .row').append(card)
 }
-
-
 
   $('.star').click((clickEvt) => {
     updateStarsOnClick(clickEvt);
