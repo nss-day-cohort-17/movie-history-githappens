@@ -394,7 +394,7 @@ function deleteMovieFinal(e) {
   var currentID = $(e.target).parent().parent().parent().parent().attr("id");
   console.log("currentID : ", currentID);
   $.ajax({
-    url : "https://moviehistory-githappens.firebaseio.com/" + currentID + "/.json",
+    url : `https://moviehistory-githappens.firebaseio.com/${uid}/${currentID}/.json`,
     method : "DELETE"
   });
 
@@ -470,7 +470,7 @@ function writeWatched(e) {
   var currentID = $(clickEventOfOld).parent().parent().parent().parent().attr("id");
   console.log("currentID : ", currentID);
   $.ajax({
-    url : "https://moviehistory-githappens.firebaseio.com/" + currentID + "/.json",
+    url : `https://moviehistory-githappens.firebaseio.com/${uid}/${currentID}/.json`,
     data: JSON.stringify({ Watched: true }),
     type : 'PATCH',
     dataType: 'json'
@@ -485,7 +485,7 @@ function writeUnwatched(e) {
   var currentID = $(clickEventOfOld).parent().parent().parent().parent().attr("id");
   console.log("currentID : ", currentID);
   $.ajax({
-    url : "https://moviehistory-githappens.firebaseio.com/" + currentID + "/.json",
+    url : `https://moviehistory-githappens.firebaseio.com/${uid}/${currentID}/.json`,
     data: JSON.stringify({ Watched: false }),
     type : 'PATCH',
     dataType: 'json'
