@@ -42,6 +42,10 @@ p.plot {
   /*max-height: 100px*/
 }
 
+#watchlist .rating {
+  display: none;
+}
+
 /*********************
  ** Page Styles
  *********************/

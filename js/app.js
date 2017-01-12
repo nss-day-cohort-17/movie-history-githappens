@@ -267,6 +267,7 @@ function showStarsOnLoad(uuid, rating) {
 
 // Updates the 1-5 star rating on DOM and updates data in firebase
 function updateStarsOnClick(clickEvt) {
+  console.log("updateStarsOnClick")
 	var target = clickEvt.target
 	var starVal = $(target).data('value')
 	var uuid = $(target).closest('.col').attr('id')
