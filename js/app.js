@@ -6,9 +6,22 @@ addTabEvents()
 loadInitialMovies()
 // Add mobile navbar functionality
 $(".button-collapse").sideNav({
-  closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+  closeOnClick: true, // Closes side-nav on <a> clicks, useful for
   draggable: true // Choose whether you can drag to open on touch screens
 });
+
+////////////////////////////
+// Firebase Auth
+////////////////////////////
+
+firebase.initializeApp({
+  apiKey: "AIzaSyCvutchqpXLOOTepJYZTnz0Cx10lGmLcVM",
+  authDomain: "moviehistory-githappens.firebaseapp.com",
+  databaseURL: "https://moviehistory-githappens.firebaseio.com",
+  storageBucket: "moviehistory-githappens.appspot.com",
+  messagingSenderId: "86422585644"
+});
+
 
 // on page load, add movies is hidden
 function hideAddMovies () {
