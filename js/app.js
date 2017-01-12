@@ -374,8 +374,9 @@ function updateStarsOnClick(clickEvt) {
 }
 
 // Updates star rating on object using patch
+// NOTE: uuid is movie.  uid is user.
 function updateRating(uuid, rating) {
-	var url = `https://moviehistory-githappens.firebaseio.com/${uuid}.json`
+	var url = `https://moviehistory-githappens.firebaseio.com/${uid}/${uuid}.json`
 	$.ajax({
 	  url : url,
 	  data: JSON.stringify({ Stars: rating }),
