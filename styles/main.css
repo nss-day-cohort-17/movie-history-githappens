@@ -3,10 +3,17 @@
 Style for movie cards
 *************************/
 
-.year span,
-.actors span,
-.plot span {
+.year span:first-child,
+.actors span:first-child,
+.plot span:first-child {
   font-weight:  bold;
+}
+
+/* override materialize card settings */
+/* deals with text overflow */
+.card-content {
+  max-height: 67% !important;
+  overflow: scroll !important;
 }
 
 /*********************
@@ -29,6 +36,10 @@ Style for movie cards
 h2 {
   margin-top: 40px;
   margin-bottom: 20px
+}
+
+p.plot {
+  /*max-height: 100px*/
 }
 
 /*********************
