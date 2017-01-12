@@ -162,8 +162,8 @@ function addToWatchList() {
 }
 
 
-//////////////////////////////////////////Add new movie to
-
+//////////////////////////////////////////
+// Add new movie to
 // Loops through all saved movies of user
 // Tests to see if they have been watched or not
 // Loads the movie card (from handlebar template) into correct section
