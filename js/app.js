@@ -105,7 +105,6 @@ function SearchFactory () {
 }
 
 //parsed, and loaded into card(s)
-// NOTE: console log in this function
 function fillCards(data) {
   currentMovie = data;
   currentMovie.Watched = false;
@@ -130,39 +129,42 @@ function fillCards(data) {
   bindToWatchList();
 }
 
-//function that binds event handler to new card
+// function that binds event handler to new card
+// NOTE: this function binds event listeners to the search result
 function bindToWatchList () {
   $("#toWatchList").click(addToWatchList);
   $(".dismiss").click(deleteSearchMovies);
 };
+
 //if want to add to watchlist
-  //variable moved to watchlist card
-  function addToWatchList() {
-    console.log("add to watchlist");
-    //removes card from page
-    removeSearchCard();
-    //adds card object to user json
-    sendToJSON = new Promise(function(resolve, reject) {
-    jQuery.post("https://moviehistory-githappens.firebaseio.com/.json", JSON.stringify(currentMovie))
-      .done(function(data) {
-        resolve(data);
-      })
+//variable moved to watchlist card
+function addToWatchList() {
+  console.log("add to watchlist");
+  //removes card from page
+  removeSearchCard();
+  //adds card object to user json
+  // NOTE: is there no .then() that happens after this promise?
+  sendToJSON = new Promise(function(resolve, reject) {
+  jQuery.post("https://moviehistory-githappens.firebaseio.com/.json", JSON.stringify(currentMovie))
+    .done(function(data) {
+      resolve(data);
     })
-  }
-  //added to user json file
-  //card removed from add movies container
-  function removeSearchCard() {
-    console.log("remove me");
-    //removes card from page
-    $("#searchCard").remove();
-    //resets search field to empty string
-    $(".userMovieSearch").val("");
-  }
+  })
+}
+
+//added to user json file
+//card removed from add movies container
+function removeSearchCard() {
+  console.log("remove me");
+  //removes card from page
+  $("#searchCard").remove();
+  //resets search field to empty string
+  $(".userMovieSearch").val("");
+}
 
 ////////////////////////////
 // Delete Searched Movies
 ////////////////////////////
-
 
 
 function deleteSearchMovies(e) {
@@ -171,7 +173,6 @@ function deleteSearchMovies(e) {
     $(".userMovieSearch").val("");
     $(".userMovieSearch").blur();
 }
-
 
 ////////////////////////////
 // Add Movies
