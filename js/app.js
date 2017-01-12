@@ -1,11 +1,9 @@
-
 ////////////////////////////
 // App
 ////////////////////////////
 
 addTabEvents()
 loadInitialMovies()
-
 
 // on page load, add movies is hidden
 function hideAddMovies () {
@@ -39,7 +37,9 @@ $(document).ready(function() {
   });
 //Upon focus of user input, add the "active" class to the label
 
+
 // Hard-coded page navigation based on tab clicking
+// Function is called at the top of this script
 function addTabEvents() {
 	$('#watchlist-tab').click(function() {
 		$('#tabs a').removeClass('active')
@@ -61,17 +61,11 @@ function addTabEvents() {
 	})
 }
 
-
-
-
 ////////////////////////////
 // Search for Movies
 ////////////////////////////
 
-
-
-//when user enter a movie title
-
+//when user enters a movie title
 $("#movieSearch").click(function (e) {
   console.log("submitting");
   e.preventDefault();
@@ -105,12 +99,10 @@ function SearchFactory () {
       errorText = "We're sorry, something didn't work.  Please check your spelling and try again.";
       $(".addMovieContainer .row").html(errorText);
     } else {
-
       fillCards(data);
     }
   });
 }
-
 
 //parsed, and loaded into card(s)
 function fillCards(data) {
@@ -135,57 +127,59 @@ function fillCards(data) {
   $(".addMovieContainer .row").html(cardData);
   //binds event handler to newly created card
   bindToWatchList();
-
 }
 
-//function that binds event handler to new card
+// function that binds event handler to new card
+// NOTE: this function binds event listeners to the search result
 function bindToWatchList () {
   $("#toWatchList").click(addToWatchList);
   $(".dismiss").click(deleteSearchMovies);
 };
+
 //if want to add to watchlist
-  //variable moved to watchlist card
-  function addToWatchList() {
-    console.log("add to watchlist");
-    //removes card from page
-    removeSearchCard();
-    //adds card object to user json
-    sendToJSON = new Promise(function(resolve, reject) {
-    jQuery.post("https://moviehistory-githappens.firebaseio.com/.json", JSON.stringify(currentMovie))
-      .done(function(data) {
-        resolve(data);
-      })
+//variable moved to watchlist card
+function addToWatchList() {
+  console.log("add to watchlist");
+  //removes card from page
+  removeSearchCard();
+  //adds card object to user json
+  // NOTE: is there no .then() that happens after this promise?
+  sendToJSON = new Promise(function(resolve, reject) {
+  jQuery.post("https://moviehistory-githappens.firebaseio.com/.json", JSON.stringify(currentMovie))
+    .done(function(data) {
+      resolve(data);
     })
-  }
-  //added to user json file
-  //card removed from add movies container
-  function removeSearchCard() {
-    console.log("remove me");
-    //removes card from page
-    $("#searchCard").remove();
-    //resets search field to empty string
-    $(".userMovieSearch").val("");
-  }
+  })
+}
+
+//added to user json file
+//card removed from add movies container
+function removeSearchCard() {
+  console.log("remove me");
+  //removes card from page
+  $("#searchCard").remove();
+  //resets search field to empty string
+  $(".userMovieSearch").val("");
+}
 
 ////////////////////////////
 // Delete Searched Movies
 ////////////////////////////
 
-
-
+// This function deletes the search result
 function deleteSearchMovies(e) {
   $(this).parent().remove();
   //resets search field to empty string
-    $(".userMovieSearch").val("");
-    $(".userMovieSearch").blur();
+  $(".userMovieSearch").val("");
+  $(".userMovieSearch").blur();
 }
-
 
 ////////////////////////////
 // Add Movies
 ////////////////////////////
 
 // Queries firebase for initial data
+// Upon successful fetch of data, calls populate function
 function loadInitialMovies() {
 	var url = 'https://moviehistory-githappens.firebaseio.com/.json'
 	var movie
@@ -195,34 +189,22 @@ function loadInitialMovies() {
 	p.then(populate)
 }
 
-// Populate page
+// Loops through all saved movies of user
+// Tests to see if they have been watched or not
+// Loads the movie card (from handlebar template) into correct section
+// Adds event listener to stars after page population
 function populate(data) {
+  // Grab and process handlebar template
 	var templateHTML = $('#card-template').html()
 	var template = Handlebars.compile(templateHTML)
 
 	for(var movie in data) {
 		if(data[movie].Watched === true) {
-      console.log('watched = true')
-      card = template(data[movie])
-      card = $(card).find('.col').attr('id', movie).closest('.movieWrapper')
-      card = '<div class="movieWrapper">' + card.html() + '</div>'
-      $('#history .row').append(card)
-      $('#all-movies .row').append(card)
-      console.dir(card)
-      //change text to watched
-      // Add class watched to the movies in 'history' after loading them in
-      $('#history .movie-cards .watchedOrNot').addClass("watched");
-      changeWatchedText();
+      insertMovieWatchlist(template, movie, data)
     } else {
-      console.log('watched = false')
-      card = template(data[movie])
-      card = $(card).find('.col').attr('id', movie).closest('.movieWrapper')
-      card = '<div class="movieWrapper">' + card.html() + '</div>'
-      $('#watchlist .row').append(card)
-      $('#all-movies .row').append(card)
-      console.dir(card)
+      insertMovieHistory(template, movie, data)
     }
-    if (data[movie].Stars != null) {
+    if (data[movie].Stars != null) { // If movie has stored star rating...
       showStarsOnLoad(movie, data[movie].Stars)
     }
   }
@@ -231,9 +213,34 @@ function populate(data) {
 	})
 }
 
+// This function shows a movie on the watchlist page
+// It takes a handlebars template, the movie ID, and json file as args
+function insertMovieWatchlist(template, movie, data) {
+  card = template(data[movie]) // generate html using data and template
+  // Goes down to ".col" level and adds ID, then returns the whole thing
+  card = $(card).find('.col').attr('id', movie).closest('.movieWrapper')
+  card = '<div class="movieWrapper">' + card.html() + '</div>' // Hard code missing parent el
+  $('#history .row').append(card)
+  $('#all-movies .row').append(card)
+
+  // Add class watched to the movies in 'history' after loading them in
+  $('#history .movie-cards .watchedOrNot').addClass("watched");
+  changeWatchedText();
+}
+
+// This function shows a movie on the history page
+// It takes a handlebars template, the movie ID, and json file as args
+function insertMovieHistory(template, movie, data) {
+  card = template(data[movie])
+  card = $(card).find('.col').attr('id', movie).closest('.movieWrapper')
+  card = '<div class="movieWrapper">' + card.html() + '</div>'
+  $('#watchlist .row').append(card)
+  $('#all-movies .row').append(card)
+}
+
+// This function takes a movie ID and rating
+// This displays the correct number of stars on load
 function showStarsOnLoad(uuid, rating) {
-	$(`#${uuid} .star.filled`).addClass('hidden') // hide filled stars
-	$(`#${uuid} .star.hollow`).removeClass('hidden') // show hollow stars
 	switch(rating) {
 		case 1:
 			$(`#${uuid} .star-1.hollow`).addClass('hidden')
@@ -255,12 +262,12 @@ function showStarsOnLoad(uuid, rating) {
 			$(`#${uuid} .star.hollow`).addClass('hidden') // hide filled stars
 			$(`#${uuid} .star.filled`).removeClass('hidden') // show hollow stars
 			break
-
   }
 }
 
-// Updates the 1-5 star rating on DOM
+// Updates the 1-5 star rating on DOM and updates data in firebase
 function updateStarsOnClick(clickEvt) {
+  console.log("updateStarsOnClick")
 	var target = clickEvt.target
 	var starVal = $(target).data('value')
 	var uuid = $(target).closest('.col').attr('id')
@@ -295,7 +302,7 @@ function updateStarsOnClick(clickEvt) {
 	}
 }
 
-// Updates star rating on object
+// Updates star rating on object using patch
 function updateRating(uuid, rating) {
 	var url = `https://moviehistory-githappens.firebaseio.com/${uuid}.json`
 	$.ajax({
@@ -324,9 +331,9 @@ function deleteMovieFinal(e) {
 }
 
 
-/////////////////////////////
+///////////////////////////////////////////////////////////
 // Changing movies from watched to unwatched and visa versa
-///////////////////////////
+//////////////////////////////////////////////////////////
 
 //if movie is watched and want to switch to unwatched for page load,
 function changeWatchedText() {
@@ -340,7 +347,7 @@ function changeWatchedText() {
 //   $(e.target).text("Mark Film As Watched");
 // });
 
-    //tell firebase to update
+//tell firebase to update
 
 //if movie is UNwatched and want to switch to Watched,
 $("body").on("click", ".watchedOrNot", function(e) {
@@ -349,7 +356,7 @@ $("body").on("click", ".watchedOrNot", function(e) {
   console.log("event target", evt)
   if ($(e.target).hasClass("watched")) {
     console.log("Move me to watchlist")
-        //write that film as watched
+    //write that film as watched
     writeUnwatched(evt);
     $(e.target).removeClass("watched");
     //change text on link
@@ -357,32 +364,34 @@ $("body").on("click", ".watchedOrNot", function(e) {
     //add to history
     var watchedCard = $(e.target).closest(".movieWrapper").html();
     watchedCard = "<div class='movieWrapper'>" + watchedCard + "</div>";
-      //remove from watchlist
+    //remove from watchlist
     $(e.target).parentsUntil(".row").remove();
 
     $('#watchlist .row').append(watchedCard);
-
-
   } else {
     $(e.target).addClass("watched");
-        //write that film as unwatched
+    //write that film as unwatched
     writeWatched(evt);
-      //change text on link
+    //change text on link
     $(e.target).text("Mark as UnWatched");
     //add to watchlist
     var unwatchedCard = $(e.target).closest(".movieWrapper").html();
     unwatchedCard = "<div class='movieWrapper'>" + unwatchedCard + "</div>";
     console.log(unwatchedCard)
 
-
     //remove from history
     $(e.target).parentsUntil(".row").remove();
     $('#history  .row').append(unwatchedCard);
 
+    // Add event listeners to stars of newly added card
+    $('#history .movieWrapper:last-child .star').click((clickEvt) => {
+      updateStarsOnClick(clickEvt);
+    })
   }
 });
 
 
+// Uses patch to update watched attribute
 function writeWatched(e) {
   //get id from card
   var clickEventOfOld = e;
@@ -396,6 +405,7 @@ function writeWatched(e) {
   });
 }
 
+// Uses patch to update watched attribute
 function writeUnwatched(e) {
   //get id from card
   var clickEventOfOld = e;

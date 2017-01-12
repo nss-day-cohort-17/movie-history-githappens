@@ -3,10 +3,17 @@
 Style for movie cards
 *************************/
 
-.year span,
-.actors span,
-.plot span {
+.year span:first-child,
+.actors span:first-child,
+.plot span:first-child {
   font-weight:  bold;
+}
+
+/* override materialize card settings */
+/* deals with text overflow */
+.card-content {
+  max-height: 67% !important;
+  overflow: scroll !important;
 }
 
 /*********************
@@ -16,6 +23,38 @@ Style for movie cards
 
 .hidden {
 	display: none !important;
+}
+
+/*********************
+ ** Page Layout
+ *********************/
+
+.logo {
+  max-width: 65px;
+}
+
+#watched h2,
+#history h2,
+#all-movies h2 {
+  margin-top: 40px;
+  margin-bottom: 20px
+}
+
+p.plot {
+  /*max-height: 100px*/
+}
+
+#watchlist .rating {
+  display: none;
+}
+
+/*********************
+ ** Page Styles
+ *********************/
+
+h2 {
+  color: #ee6e73;
+  font-weight: 300;
 }
 
 /*********************
@@ -54,11 +93,11 @@ Style for movie cards
    position: relative;
    //left: 0;
    color: gold;
+}
 
 /*************************
 Style for add movie cards
 *************************/
-
 
 .searchCard {
   margin-top: 1em;
