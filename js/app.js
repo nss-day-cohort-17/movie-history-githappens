@@ -3,7 +3,6 @@
 ////////////////////////////
 
 addTabEvents()
-loadInitialMovies()
 // Add mobile navbar functionality
 $(".button-collapse").sideNav({
   closeOnClick: true, // Closes side-nav on <a> clicks, useful for
@@ -21,6 +20,12 @@ firebase.initializeApp({
   storageBucket: "moviehistory-githappens.appspot.com",
   messagingSenderId: "86422585644"
 });
+
+firebase.auth().onAuthStateChanged((e) => {
+  if(e !== null) {
+    loadInitialMovies()
+  }
+})
 
 
 // on page load, add movies is hidden
@@ -263,7 +268,7 @@ function populate(data) {
 	var templateHTML = $('#card-template').html()
 	var template = Handlebars.compile(templateHTML)
 
-	for(var movie in data) {
+	for(var user in data) {
 		if(data[movie].Watched === true) {
       insertMovieHistory(template, movie, data)
     } else {
