@@ -241,9 +241,9 @@ function populate(data) {
 
 	for(var movie in data) {
 		if(data[movie].Watched === true) {
-      insertMovieWatchlist(template, movie, data)
-    } else {
       insertMovieHistory(template, movie, data)
+    } else {
+      insertMovieWatchlist(template, movie, data)
     }
     if (data[movie].Stars != null) { // If movie has stored star rating...
       showStarsOnLoad(movie, data[movie].Stars)
@@ -256,7 +256,7 @@ function populate(data) {
 
 // This function shows a movie on the watchlist page
 // It takes a handlebars template, the movie ID, and json file as args
-function insertMovieWatchlist(template, movie, data) {
+function insertMovieHistory(template, movie, data) {
   card = template(data[movie]) // generate html using data and template
   // Goes down to ".col" level and adds ID, then returns the whole thing
   card = $(card).find('.col').attr('id', movie).closest('.movieWrapper')
@@ -271,7 +271,7 @@ function insertMovieWatchlist(template, movie, data) {
 
 // This function shows a movie on the history page
 // It takes a handlebars template, the movie ID, and json file as args
-function insertMovieHistory(template, movie, data) {
+function insertMovieWatchlist(template, movie, data) {
   card = template(data[movie])
   card = $(card).find('.col').attr('id', movie).closest('.movieWrapper')
   card = '<div class="movieWrapper">' + card.html() + '</div>'
