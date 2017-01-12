@@ -19,6 +19,28 @@ Style for movie cards
 }
 
 /*********************
+ ** Page Layout
+ *********************/
+
+.logo {
+  max-width: 65px;
+}
+
+h2 {
+  margin-top: 40px;
+  margin-bottom: 20px
+}
+
+/*********************
+ ** Page Styles
+ *********************/
+
+h2 {
+  color: #ee6e73;
+  font-weight: 300;
+}
+
+/*********************
  ** Star Ratings
  *********************/
 
@@ -54,11 +76,11 @@ Style for movie cards
    position: relative;
    //left: 0;
    color: gold;
+}
 
 /*************************
 Style for add movie cards
 *************************/
-
 
 .searchCard {
   margin-top: 1em;
