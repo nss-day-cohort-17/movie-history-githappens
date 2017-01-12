@@ -167,8 +167,16 @@ function dynamicallyAddToWatchList(data) {
   // Grab and process handlebar template
   var templateHTML = $('#card-template').html()
   var template = Handlebars.compile(templateHTML)
+  console.log("trying to add movie to watchlist")
+  insertMovieWatchlist(template, data.name, currentMovie)
+  function insertMovieWatchlist(template, movie, data) {
+  card = template(currentMovie)
 
-      insertMovieWatchlist(template, data.name, currentMovie)
+  card = $(card).find('.col').attr('id', movie).closest('.movieWrapper')
+  card = '<div class="movieWrapper">' + card.html() + '</div>'
+  $('#watchlist .row').append(card)
+  $('#all-movies .row').append(card)
+}
 
 
 
