@@ -23,17 +23,21 @@ firebase.initializeApp({
 
 firebase.auth().onAuthStateChanged((e) => {
   if(e !== null) {
-    loadInitialMovies(e)
+    uid = e.uid
+    loadInitialMovies()
     $('article.login').addClass('hidden')
     $('article.mainpage').removeClass('hidden')
   } else {
+    uid = ""
     clearMoviesOnLogout()
     $('article.login').removeClass('hidden')
     $('article.mainpage').addClass('hidden')
   }
 })
 
+// NOTE: is this single line function necessary?  I'll keep it for now.
 function clearMoviesOnLogout() {
+  // Deletes all movies from watchlist, history, and all movies
   $('section .movieWrapper').remove()
 }
 
@@ -62,6 +66,7 @@ $(".hideSearch").click(hideAddMovies);
 var userMovieSearch = "star wars";
 var currentMovie;
 var searchMovies;
+var uid;
 
 
 //Allows user input field to update upon user focus
@@ -176,14 +181,12 @@ function addToWatchList() {
   //removes card from page
   removeSearchCard();
   //adds card object to user json
-  // NOTE: is there no .then() that happens after this promise?
   sendToJSON = new Promise(function(resolve, reject) {
-  jQuery.post("https://moviehistory-githappens.firebaseio.com/.json", JSON.stringify(currentMovie))
+  jQuery.post(`https://moviehistory-githappens.firebaseio.com/${uid}.json`, JSON.stringify(currentMovie))
     .done(function(data, x, t) {
       resolve(data);
     })
-
-    //I need e.name for the object key
+  //I need e.name for the object key
   }).then(function(data) {
     dynamicallyAddToWatchList(data)
   })
@@ -219,19 +222,6 @@ function dynamicallyAddToWatchList(data) {
 ////////////////////////////////////
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //added to user json file
 //card removed from add movies container
 function removeSearchCard() {
@@ -261,8 +251,8 @@ function deleteSearchMovies(e) {
 // Queries firebase for initial data
 // Upon successful fetch of data, calls populate function
 // e is a user object from firebase
-function loadInitialMovies(e) {
-	var url = `https://moviehistory-githappens.firebaseio.com/${e.uid}.json`
+function loadInitialMovies() {
+	var url = `https://moviehistory-githappens.firebaseio.com/${uid}.json`
 	var movie
 	var p = new Promise(function(res, rej) {
 		$.getJSON(url, (data) => res(data))
