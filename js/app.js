@@ -368,8 +368,6 @@ $("body").on("click", ".watchedOrNot", function(e) {
     $(e.target).parentsUntil(".row").remove();
 
     $('#watchlist .row').append(watchedCard);
-
-
   } else {
     $(e.target).addClass("watched");
     //write that film as unwatched
@@ -381,11 +379,14 @@ $("body").on("click", ".watchedOrNot", function(e) {
     unwatchedCard = "<div class='movieWrapper'>" + unwatchedCard + "</div>";
     console.log(unwatchedCard)
 
-
     //remove from history
     $(e.target).parentsUntil(".row").remove();
     $('#history  .row').append(unwatchedCard);
 
+    // Add event listeners to stars of newly added card
+    $('#history .movieWrapper:last-child .star').click((clickEvt) => {
+      updateStarsOnClick(clickEvt);
+    })
   }
 });
 

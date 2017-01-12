@@ -33,7 +33,9 @@ Style for movie cards
   max-width: 65px;
 }
 
-h2 {
+#watched h2,
+#history h2,
+#all-movies h2 {
   margin-top: 40px;
   margin-bottom: 20px
 }
