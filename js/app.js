@@ -24,8 +24,18 @@ firebase.initializeApp({
 firebase.auth().onAuthStateChanged((e) => {
   if(e !== null) {
     loadInitialMovies(e)
+    $('article.login').addClass('hidden')
+    $('article.mainpage').removeClass('hidden')
+  } else {
+    clearMoviesOnLogout()
+    $('article.login').removeClass('hidden')
+    $('article.mainpage').addClass('hidden')
   }
 })
+
+function clearMoviesOnLogout() {
+  $('section .movieWrapper').remove()
+}
 
 
 // on page load, add movies is hidden
@@ -250,6 +260,7 @@ function deleteSearchMovies(e) {
 
 // Queries firebase for initial data
 // Upon successful fetch of data, calls populate function
+// e is a user object from firebase
 function loadInitialMovies(e) {
 	var url = `https://moviehistory-githappens.firebaseio.com/${e.uid}.json`
 	var movie
