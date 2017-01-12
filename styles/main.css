@@ -16,6 +16,17 @@ Style for movie cards
   overflow: scroll !important;
 }
 
+/* Different size on all movies page */
+#all-movies .card-content {
+  max-height: 100% !important;
+  overflow: scroll !important;
+}
+
+#all-movies .card-action,
+#all-movies .rating {
+  display: none;
+}
+
 /*********************
  ** Helper Classes
  *********************/
