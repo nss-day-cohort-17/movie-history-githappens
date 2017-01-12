@@ -151,9 +151,12 @@ function addToWatchList() {
     })
 
     //I need e.name for the object key
-  }).then(dynamicallyAddToWatchList(data))
-})
+  }).then(function(data) {
+    dynamicallyAddToWatchList(data)
+  })
 }
+
+
 //////////////////////////////////////////Add new movie to
 
 // Loops through all saved movies of user
@@ -166,9 +169,9 @@ function dynamicallyAddToWatchList(data) {
   var template = Handlebars.compile(templateHTML)
 
       insertMovieWatchlist(template, data.name, currentMovie)
-    }
 
-  }
+
+
   $('.star').click((clickEvt) => {
     updateStarsOnClick(clickEvt);
   })
