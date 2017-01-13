@@ -39,6 +39,69 @@ firebase.auth().onAuthStateChanged((e) => {
   }
 })
 
+////////////////////////////
+// Login Page
+////////////////////////////
+
+//login
+
+$(".loginBtn").click(function(e) {
+  //get user email and pass word
+  console.log("log me in");
+  var email = $("input[type='email']").val();
+  var password = $("input[type='password']").val();
+  firebase
+  .auth()
+  .signInWithEmailAndPassword(email, password)
+  .then(() => {
+  e.preventDefault();
+    //reset form on correct user auth
+    $('.login form')[0].reset();
+    //send error message if login doesn't work
+  }).catch(function(e)  {
+    alert(e.message)
+  })
+})
+
+//to register
+$(".createAccount").click((e) => {
+  e.preventDefault();
+  var email = $("input[type='email']").val();
+  var password = $("input[type='password']").val();
+
+  firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then (() => {
+    //set to the h1
+    $('.login form')[0].reset();
+  })
+    //send error message if login doesn't work
+  .catch(function(e)  {
+    alert(e.message)
+  })
+
+})
+
+
+//if user forgot pass word
+$(".forgotEmail").click((e) => {
+    //get email address
+  var email = $("input[type='email']").val();
+  firebase
+    .auth()
+    .sendPasswordResetEmail(email).then(function() {
+    alert("A reset email has been sent to your address")
+  })
+    .catch(function(e)  {
+    alert(e.message)
+  })
+
+})
+
+
+
+
 
 // on page load, add movies is hidden
 function hideAddMovies () {
@@ -56,6 +119,9 @@ function showAddMovies() {
 
 // but if click other elements of the navbar, will hide
 $(".hideSearch").click(hideAddMovies);
+
+
+
 
 ////////////////////////////
 // Global Var
