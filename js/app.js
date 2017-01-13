@@ -601,7 +601,12 @@ function getDataFromHTML(section, info) {
     var uuid = $(el).find('.col').attr('id')
     dataArray.push({
       uuid: uuid,
-      data: data
+      data: data,
+      Title: $(el).find('.movie-data').data('title'),
+      Poster: $(el).find('.movie-data').data('poster'),
+      Year: $(el).find('.movie-data').data('year'),
+      Cctors: $(el).find('.movie-data').data('actors'),
+      Plot: $(el).find('.movie-data').data('plot')
     })
   })
   return dataArray
@@ -620,12 +625,14 @@ function alphabetizeMovies(array) {
 
 // Sort upon change of select element
 $('#all-movies select').change(() => {
+  console.log('change')
   var selected = $('#all-movies select option:selected').val()
   switch(selected) {
     case 'alphabetical':
       titles = getDataFromHTML('all-movies', 'title')
       titles = alphabetizeMovies(titles)
       console.log(titles)
+      $('#all-movies .row').html('')
       break
     case 'imdb-rating':
       //Do stuff
