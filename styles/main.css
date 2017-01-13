@@ -190,6 +190,10 @@ Style for add movie cards
 }
 
 .removeMovie {
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+
   display: block;
   color: gray !important;
   text-align: right;
