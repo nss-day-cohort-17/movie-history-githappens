@@ -47,6 +47,7 @@ firebase.auth().onAuthStateChanged((e) => {
 
 $(".loginBtn").click(function(e) {
   //get user email and pass word
+  e.preventDefault();
   console.log("log me in");
   var email = $("input[type='email']").val();
   var password = $("input[type='password']").val();
