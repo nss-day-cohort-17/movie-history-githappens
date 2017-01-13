@@ -33,17 +33,11 @@ firebase.auth().onAuthStateChanged((e) => {
     $('article.mainpage').removeClass('hidden')
   } else {
     uid = ""
-    clearMoviesOnLogout()
+    $('section .movieWrapper').remove()
     $('article.login').removeClass('hidden')
     $('article.mainpage').addClass('hidden')
   }
 })
-
-// NOTE: is this single line function necessary?  I'll keep it for now.
-function clearMoviesOnLogout() {
-  // Deletes all movies from watchlist, history, and all movies
-  $('section .movieWrapper').remove()
-}
 
 
 // on page load, add movies is hidden
