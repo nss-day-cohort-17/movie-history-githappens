@@ -413,7 +413,6 @@ function updateStarsOnClick(clickEvt) {
       console.log("updateStarsOnClick case 1")
 			$(`#${uuid} .star-1.hollow`).addClass('hidden')
 			$(`#${uuid} .star-1.filled`).removeClass('hidden')
-      $(target).closest('.movieWrapper').find('.movie-data').data("stars", "1")
 			updateRating(uuid, 1)
 			break
 		case 2:
@@ -437,6 +436,7 @@ function updateStarsOnClick(clickEvt) {
 			updateRating(uuid, 5)
 			break
 	}
+  $(target).closest('.movieWrapper').find('.movie-data').data('stars', `${starVal}`)
 }
 
 // Updates star rating on object using patch
@@ -491,6 +491,7 @@ function changeWatchedText() {
 $("body").on("click", ".watchedOrNot", function(e) {
   e.preventDefault();
   var evt = e.target;
+
   console.log("event target", evt)
   if ($(e.target).hasClass("watched")) {
     console.log("Move me to watchlist")
@@ -515,7 +516,6 @@ $("body").on("click", ".watchedOrNot", function(e) {
     //add to watchlist
     var unwatchedCard = $(e.target).closest(".movieWrapper").html();
     unwatchedCard = "<div class='movieWrapper'>" + unwatchedCard + "</div>";
-    console.log(unwatchedCard)
 
     //remove from history
     $(e.target).parentsUntil(".row").remove();
@@ -541,6 +541,9 @@ function writeWatched(e) {
     type : 'PATCH',
     dataType: 'json'
   });
+  //Update data in html too
+  $(`#${currentID} .movie-data`).data('watched', 'true')
+  console.log('update watched val')
 }
 
 // Uses patch to update watched attribute
@@ -556,4 +559,7 @@ function writeUnwatched(e) {
     type : 'PATCH',
     dataType: 'json'
   });
+  //Update data in html too
+  $(`#${currentID} .movie-data`).data('watched', 'false')
+  console.log('update watched val')
 }
