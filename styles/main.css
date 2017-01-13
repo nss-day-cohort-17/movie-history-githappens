@@ -85,9 +85,11 @@ Style for movie cards
   max-width: 65px;
 }
 
-#watched h2,
+#watchlist h2,
 #history h2,
 #all-movies h2 {
+  color: #4dd0e1;
+  font-weight: 300;
   margin-top: 40px;
   margin-bottom: 20px
 }
@@ -103,11 +105,6 @@ p.plot {
 /*********************
  ** Page Styles
  *********************/
-
-h2 {
-  color: #4dd0e1;
-  font-weight: 300;
-}
 
 .side-nav a {
   font-size: 1.5rem;
