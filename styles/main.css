@@ -102,6 +102,11 @@ p.plot {
   display: none;
 }
 
+#all-movies .input-field {
+  width: 300px;
+  margin-top: -65px;
+}
+
 /*********************
  ** Page Styles
  *********************/

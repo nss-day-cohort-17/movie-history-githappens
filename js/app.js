@@ -586,6 +586,11 @@ function writeUnwatched(e) {
 // Sort Function
 ////////////////////////////
 
+// Initializes material select options
+$(document).ready(function() {
+  $('select').material_select();
+});
+
 // Returns data from history, watchlist, or all-movies
 // Returns data corresponding to info argument
 function getDataFromHTML(section, info) {
