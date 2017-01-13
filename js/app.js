@@ -457,7 +457,7 @@ $("body").on("click", ".removeMovie", deleteMovieFinal);
 function deleteMovieFinal(e) {
   //delete from JSON
   //get id from card
-  var currentID = $(e.target).parent().parent().parent().parent().attr("id");
+  var currentID = $(e.target).closest('.col').attr("id");
   console.log("currentID : ", currentID);
   $.ajax({
     url : `https://moviehistory-githappens.firebaseio.com/${uid}/${currentID}/.json`,
