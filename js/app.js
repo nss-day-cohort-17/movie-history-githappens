@@ -490,6 +490,7 @@ function deleteMovieFinal(e) {
 
   //deletes from DOM
   $(e.target).parentsUntil(".row").remove();
+  $("#" + currentID).parentsUntil(".row").remove()
 }
 
 
@@ -606,16 +607,3 @@ function getDataFromHTML(section, info) {
   })
   return dataArray
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
