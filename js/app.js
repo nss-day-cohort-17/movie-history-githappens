@@ -606,7 +606,7 @@ function getDataFromHTML(section, info) {
       Title: $(el).find('.movie-data').data('title'),
       Poster: $(el).find('.movie-data').data('poster'),
       Year: $(el).find('.movie-data').data('year'),
-      Cctors: $(el).find('.movie-data').data('actors'),
+      Actors: $(el).find('.movie-data').data('actors'),
       Plot: $(el).find('.movie-data').data('plot')
     })
   })
@@ -618,7 +618,7 @@ function alphabetizeMovies(array) {
   function compare(a,b) {
     string1 = a.data
     string2 = b.data
-    return string1.localeCompare(string2);
+    return string1.localeCompare(string2)
   }
 
   return array.sort(compare)
@@ -626,7 +626,9 @@ function alphabetizeMovies(array) {
 
 // Sort upon change of select element
 $('#all-movies select').change(() => {
-  console.log('change')
+  var templateHTML = $('#card-template').html()
+  var template = Handlebars.compile(templateHTML)
+
   var selected = $('#all-movies select option:selected').val()
   switch(selected) {
     case 'alphabetical':
@@ -634,6 +636,7 @@ $('#all-movies select').change(() => {
       titles = alphabetizeMovies(titles)
       console.log(titles)
       $('#all-movies .row').html('')
+      repopulateAllMovies(titles, template)
       break
     case 'imdb-rating':
       //Do stuff
@@ -643,6 +646,19 @@ $('#all-movies select').change(() => {
       break
   }
 })
+
+function repopulateAllMovies(array, template) {
+  for(var i = 0; i < array.length; i++) {
+    var card = template(array[i])
+    $('#all-movies .row').append(card)
+  }
+}
+
+
+
+
+
+
 
 
 
