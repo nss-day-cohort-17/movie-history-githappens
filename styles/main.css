@@ -1,4 +1,46 @@
 /*************************
+Style for login page
+*************************/
+
+.login {
+  min-height: 100%;
+  min-width: 100%;
+  position: fixed;
+}
+
+.loginForm {
+  border: 1px solid black;
+  border-radius: 5%;
+}
+
+.createAccount:hover {
+  color: teal !important;
+}
+
+
+.btn-small {
+    height: 24px;
+    line-height: 24px;
+    padding: 0 0.5rem;
+}
+
+
+
+.email,
+.password {
+  text-align: left;
+}
+/**styling for logo*/
+
+.popcorn {
+  padding-top: 2em;
+
+}
+
+
+
+
+/*************************
 Style for movie cards
 *************************/
 
