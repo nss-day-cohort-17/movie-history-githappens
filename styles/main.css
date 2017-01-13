@@ -67,6 +67,10 @@ Style for movie cards
   font-weight:  bold;
 }
 
+.card-content span {
+  font-weight: bold;
+}
+
 /* override materialize card settings */
 /* deals with text overflow */
 .card-content {

@@ -602,8 +602,66 @@ function getDataFromHTML(section, info) {
     var uuid = $(el).find('.col').attr('id')
     dataArray.push({
       uuid: uuid,
-      data: data
+      data: data,
+      Title: $(el).find('.movie-data').data('title'),
+      Poster: $(el).find('.movie-data').data('poster'),
+      Year: $(el).find('.movie-data').data('year'),
+      Actors: $(el).find('.movie-data').data('actors'),
+      Plot: $(el).find('.movie-data').data('plot')
     })
   })
   return dataArray
 }
+
+// Takes object from getDataFromHTML and alphabetizes
+function alphabetizeMovies(array) {
+  function compare(a,b) {
+    string1 = a.data
+    string2 = b.data
+    return string1.localeCompare(string2)
+  }
+
+  return array.sort(compare)
+}
+
+// Sort upon change of select element
+$('#all-movies select').change(() => {
+  var templateHTML = $('#card-template').html()
+  var template = Handlebars.compile(templateHTML)
+
+  var selected = $('#all-movies select option:selected').val()
+  switch(selected) {
+    case 'alphabetical':
+      titles = getDataFromHTML('all-movies', 'title')
+      titles = alphabetizeMovies(titles)
+      console.log(titles)
+      $('#all-movies .row').html('')
+      repopulateAllMovies(titles, template)
+      break
+    case 'imdb-rating':
+      //Do stuff
+      break
+    case 'year-released':
+      //Do stuff
+      break
+  }
+})
+
+function repopulateAllMovies(array, template) {
+  for(var i = 0; i < array.length; i++) {
+    var card = template(array[i])
+    $('#all-movies .row').append(card)
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
