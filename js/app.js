@@ -47,6 +47,7 @@ firebase.auth().onAuthStateChanged((e) => {
 
 $(".loginBtn").click(function(e) {
   //get user email and pass word
+  e.preventDefault();
   console.log("log me in");
   var email = $("input[type='email']").val();
   var password = $("input[type='password']").val();
@@ -222,8 +223,8 @@ function fillCards(data) {
   cardData += `<p class="year"><span>Year: </span>${movieData.Year}</p>`;
   cardData += `<p class="actors"><span>Actors: </span>${movieData.Actors}</p>`
   cardData += `<p class="plot"><span>Plot: </span>${movieData.Plot}</p>`;
-  cardData += `</div><div class="card-action"><a id="toWatchList" href="#">Add to Watch List</a></div></div></div>`;
-  cardData += `<span class="new badge" data-badge-caption="Rated">Not Yet</span>`
+  cardData += `</div><div class="card-action"><a id="toWatchList" href="#" class="amber-text ">Add to Watch List</a></div></div></div>`;
+  cardData += `<span class="new badge cyan lighten-2" data-badge-caption="Rated">Not Yet</span>`
   cardData += `</div>`;
   //add to card
   $(".addMovieContainer .row").html(cardData);
