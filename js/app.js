@@ -541,9 +541,6 @@ function writeWatched(e) {
     type : 'PATCH',
     dataType: 'json'
   });
-  //Update data in html too
-  $(`#${currentID} .movie-data`).data('watched', 'true')
-  console.log('update watched val')
 }
 
 // Uses patch to update watched attribute
@@ -559,7 +556,36 @@ function writeUnwatched(e) {
     type : 'PATCH',
     dataType: 'json'
   });
-  //Update data in html too
-  $(`#${currentID} .movie-data`).data('watched', 'false')
-  console.log('update watched val')
 }
+
+////////////////////////////
+// Sort Function
+////////////////////////////
+
+// Returns data
+function getDataFromHTML(section, info) {
+  var dataArray = []
+  $(`#${section} .movieWrapper`)
+  .each((ind, el) => {
+    var data = $(el).find('.movie-data').data(`${info}`)
+    var uuid = $(el).find('.col').attr('id')
+    dataArray.push({
+      uuid: uuid,
+      data: data
+    })
+  })
+  return dataArray
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
