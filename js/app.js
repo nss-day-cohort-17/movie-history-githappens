@@ -607,6 +607,33 @@ function getDataFromHTML(section, info) {
   return dataArray
 }
 
+function compare(a,b) {
+  if (a.data < b.data)
+    return -1;
+  if (a.data > b.data)
+    return 1;
+  return 0;
+}
+
+
+// Sort upon change of select element
+$('#all-movies select').change(() => {
+  var selected = $('#all-movies select option:selected').val()
+  switch(selected) {
+    case 'alphabetical':
+      console.log(getDataFromHTML('all-movies', 'title'))
+      break
+    case 'imdb-rating':
+      //Do stuff
+      break
+    case 'year-released':
+      //Do stuff
+      break
+
+  }
+})
+
+
 
 
 

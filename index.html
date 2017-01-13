@@ -170,11 +170,11 @@
   <div class="movie-cards container">
   	<h2>All Movies</h2>
     <div class="input-field right">
-      <select>
+      <select class="sort">
         <option value="" disabled selected>Choose your option</option>
-        <option value="1">Alphabetical</option>
-        <option value="2">imdb Rating</option>
-        <option value="3">Year Released</option>
+        <option class="alphabetical" value="alphabetical">Alphabetical</option>
+        <option class="imdb-rating" value="imdb-rating">imdb Rating</option>
+        <option class="year-released" value="year-released">Year Released</option>
       </select>
       <label>Sort By:</label>
     </div>
@@ -190,7 +190,7 @@
 <script id="card-template" type="text/x-handlebars-template">
   <div class="movieWrapper">
     <div class="col m12 l6">
-      <span class="movie-data" data-title={{Title}} data-year="{{Year}}" data-rated="{{Rated}}" data-released="{{Released}}" data-runtime="{{Runtime}}" data-genre="{{Genre}}" data-director="{{Director}}" data-writer="{{Writer}}" data-actors="{{Actors}}" data-plot="{{Plot}}" data-language="{{Language}}" data-country="{{Country}}" data-awards="{{Awards}}" data-poster="{{Poster}}" data-metascore="{{Metascore}}" data-imdbRating="{{imdbRating}}" data-imdbVotes="{{idmbVotes}}" data-imdbID="{{imdbID}}" data-type="{{Type}}" data-watched="{{Watched}}" data-stars="{{Stars}}"></span>
+      <span class="movie-data" data-title="{{Title}}" data-year="{{Year}}" data-rated="{{Rated}}" data-released="{{Released}}" data-runtime="{{Runtime}}" data-genre="{{Genre}}" data-director="{{Director}}" data-writer="{{Writer}}" data-actors="{{Actors}}" data-plot="{{Plot}}" data-language="{{Language}}" data-country="{{Country}}" data-awards="{{Awards}}" data-poster="{{Poster}}" data-metascore="{{Metascore}}" data-imdbRating="{{imdbRating}}" data-imdbVotes="{{idmbVotes}}" data-imdbID="{{imdbID}}" data-type="{{Type}}" data-watched="{{Watched}}" data-stars="{{Stars}}"></span>
       <h4 class="header movieTitle truncate">{{Title}}</h4>
       <div class="card horizontal small hoverable">
         <div class="card-image">
