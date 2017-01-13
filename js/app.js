@@ -403,17 +403,17 @@ function showStarsOnLoad(uuid, rating) {
 
 // Updates the 1-5 star rating on DOM and updates data in firebase
 function updateStarsOnClick(clickEvt) {
-  console.log("updateStarsOnClick")
-	var target = clickEvt.target
-	var starVal = $(target).data('value')
-	var uuid = $(target).closest('.col').attr('id')
-	$(`#${uuid} .star.filled`).addClass('hidden') // hide filled stars
-	$(`#${uuid} .star.hollow`).removeClass('hidden') // show hollow stars
-	switch(starVal) {
-		case 1:
+  var target = clickEvt.target
+  var starVal = $(target).data('value')
+  var uuid = $(target).closest('.col').attr('id')
+  $(`#${uuid} .star.filled`).addClass('hidden') // hide filled stars
+  $(`#${uuid} .star.hollow`).removeClass('hidden') // show hollow stars
+  switch(starVal) {
+    case 1:
+      console.log("updateStarsOnClick case 1")
 			$(`#${uuid} .star-1.hollow`).addClass('hidden')
 			$(`#${uuid} .star-1.filled`).removeClass('hidden')
-      $(target).closest('.movieWrapper').find('.movie-data').attr("data-stars", "1")
+      $(target).closest('.movieWrapper').find('.movie-data').data("stars", "1")
 			updateRating(uuid, 1)
 			break
 		case 2:
