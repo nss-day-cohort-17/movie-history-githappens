@@ -60,7 +60,7 @@ $(".loginBtn").click(function(e) {
     $('.login form')[0].reset();
     //send error message if login doesn't work
   }).catch(function(e)  {
-    Materialize.toast(e.message)
+    Materialize.toast(e.message, 2000)
   })
 })
 
@@ -79,7 +79,7 @@ $(".createAccount").click((e) => {
   })
     //send error message if login doesn't work
   .catch(function(e)  {
-    Materialize.toast(e.message)
+    Materialize.toast(e.message, 2000)
   })
 
 })
@@ -95,7 +95,7 @@ $(".forgotEmail").click((e) => {
     Materialize.toast("A reset email has been sent to your address")
   })
     .catch(function(e)  {
-    Materialize.toast(e.message)
+    Materialize.toast(e.message, 2000)
   })
 
 })
