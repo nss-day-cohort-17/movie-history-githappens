@@ -85,7 +85,7 @@ Style for movie cards
   max-width: 65px;
 }
 
-#watched h2,
+#watchlist h2,
 #history h2,
 #all-movies h2 {
   color: #ee6e73;

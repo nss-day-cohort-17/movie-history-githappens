@@ -412,7 +412,7 @@ function updateStarsOnClick(clickEvt) {
 		case 1:
 			$(`#${uuid} .star-1.hollow`).addClass('hidden')
 			$(`#${uuid} .star-1.filled`).removeClass('hidden')
-      $(target).closest('.movie-data').data('stars', 1)
+      $(target).closest('.movieWrapper').find('.movie-data').attr("data-stars", "1")
 			updateRating(uuid, 1)
 			break
 		case 2:
