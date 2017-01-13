@@ -4,6 +4,8 @@ Style for login page
 
 .login {
   min-height: 100%;
+  min-width: 100%;
+  position: fixed;
 }
 
 
