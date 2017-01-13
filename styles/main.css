@@ -38,6 +38,19 @@ Style for login page
 }
 
 
+/* label focus color */
+ .input-field input:focus + label {
+   color: #4dd0e1 !important;
+ }
+ /* label underline focus color */
+ .row .input-field input:focus {
+   border-bottom: 1px solid #4dd0e1 !important;
+   box-shadow: 0 1px 0 0 #4dd0e1 !important
+ }
+
+
+
+
 
 
 /*************************
