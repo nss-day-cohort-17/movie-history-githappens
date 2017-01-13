@@ -15,14 +15,15 @@
  - -  page login
  - - - - - - - - - - - - - -  -->
 
-<article class="login">
+<article class="login hidden">
+
+<p>login</p>
+
+</article>
 
 
-</article> <!-- end of login -->
 
-
-
-<article class="mainpage">
+<article class="mainpage hidden">
 <!-- - - - - - - - - - - - - - -
  - -  Nav Bar
  - - - - - - - - - - - - - -  -->
@@ -33,12 +34,12 @@
     <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a href="#" class="addMoviesLink">Add Movie</a></li>
-      <li><a href="#" class="hideSearch">Log out</a></li>
+      <li><a href="#" class="hideSearch logout">Log out</a></li>
     </ul>
     <!-- Hamburger nav -->
     <ul class="side-nav" id="mobile-menu">
       <li><a href="#" class="addMoviesLink">Add Movie</a></li>
-      <li><a href="#" class="hideSearch">Log out</a></li>
+      <li><a href="#" class="hideSearch logout">Log out</a></li>
     </ul>
     <ul id="tabs" class="tabs tabs-transparent">
       <li id="watchlist-tab" class="tab hideSearch"><a class="active">Watchlist</a></li>
@@ -147,7 +148,7 @@
           </div>
         </div>
       </div> <!-- </div> end card -->
-    <div class="rating">
+    <div class="rating" data-stars=0>
 		  <span class="star star-5 hollow" data-type='fiveStar' data-value=5>☆</span>
 		  <span class="star star-5 filled hidden" data-value=5>★</span>
 		  <span class="star star-4 hollow" data-type='fourStar' data-value=4>☆</span>
