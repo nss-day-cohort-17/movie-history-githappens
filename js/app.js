@@ -607,21 +607,25 @@ function getDataFromHTML(section, info) {
   return dataArray
 }
 
-function compare(a,b) {
-  if (a.data < b.data)
-    return -1;
-  if (a.data > b.data)
-    return 1;
-  return 0;
-}
+// Takes object from getDataFromHTML and alphabetizes
+function alphabetizeMovies(array) {
+  function compare(a,b) {
+    string1 = a.data
+    string2 = b.data
+    return string1.localeCompare(string2);
+  }
 
+  return array.sort(compare)
+}
 
 // Sort upon change of select element
 $('#all-movies select').change(() => {
   var selected = $('#all-movies select option:selected').val()
   switch(selected) {
     case 'alphabetical':
-      console.log(getDataFromHTML('all-movies', 'title'))
+      titles = getDataFromHTML('all-movies', 'title')
+      titles = alphabetizeMovies(titles)
+      console.log(titles)
       break
     case 'imdb-rating':
       //Do stuff
@@ -629,7 +633,6 @@ $('#all-movies select').change(() => {
     case 'year-released':
       //Do stuff
       break
-
   }
 })
 
