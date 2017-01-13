@@ -212,7 +212,7 @@ function dynamicallyAddToWatchList(data) {
     $('#all-movies .row').append(card)
 }
 
-  $('.star').click((clickEvt) => {
+  $('#watchlist .movieWrapper:last-child .star').click((clickEvt) => {
     updateStarsOnClick(clickEvt);
   })
 }
