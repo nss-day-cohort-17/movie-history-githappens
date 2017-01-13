@@ -60,7 +60,7 @@ $(".loginBtn").click(function(e) {
     $('.login form')[0].reset();
     //send error message if login doesn't work
   }).catch(function(e)  {
-    alert(e.message)
+    Materialize.toast(e.message)
   })
 })
 
@@ -79,7 +79,7 @@ $(".createAccount").click((e) => {
   })
     //send error message if login doesn't work
   .catch(function(e)  {
-    alert(e.message)
+    Materialize.toast(e.message)
   })
 
 })
@@ -92,10 +92,10 @@ $(".forgotEmail").click((e) => {
   firebase
     .auth()
     .sendPasswordResetEmail(email).then(function() {
-    alert("A reset email has been sent to your address")
+    Materialize.toast("A reset email has been sent to your address")
   })
     .catch(function(e)  {
-    alert(e.message)
+    Materialize.toast(e.message)
   })
 
 })
@@ -253,7 +253,7 @@ function checkIfMovieInWatchList(e) {
     //keeps the page from jumping to the top
     e.preventDefault();
     // otherwise let the user know it is already there
-    alert("This movie is already in your history.")
+    Materialize.toast("This movie is already in your history.", 2000)
   }
 }
 
