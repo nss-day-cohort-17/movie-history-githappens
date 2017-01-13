@@ -235,9 +235,33 @@ function fillCards(data) {
 // function that binds event handler to new card
 // NOTE: this function binds event listeners to the search result
 function bindToWatchList () {
-  $("#toWatchList").click(addToWatchList);
+  $("#toWatchList").click(checkIfMovieInWatchList);
   $(".dismiss").click(deleteSearchMovies);
 };
+
+
+//tests to see if movie already in the watchlist
+
+function checkIfMovieInWatchList(e) {
+  //stores IMDB of current movie
+  var searchMovieIMDBid = currentMovie.imdbID;
+  //checks to see if movie is already in user movies by checking for the data-imdbID attribute
+  if (document.querySelectorAll(`span[data-imdbID=${searchMovieIMDBid}]`).length === 0) {
+    //if the movie isn't already on the page, add it to the page
+    addToWatchList()
+  } else {
+    //keeps the page from jumping to the top
+    e.preventDefault();
+    // otherwise let the user know it is already there
+    alert("This movie is already in your history.")
+  }
+}
+
+
+
+
+
+
 
 //if want to add to watchlist
 //variable moved to watchlist card
