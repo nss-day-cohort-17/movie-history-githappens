@@ -3,12 +3,15 @@
 ////////////////////////////
 
 addTabEvents()
-loadInitialMovies()
 // Add mobile navbar functionality
 $(".button-collapse").sideNav({
   closeOnClick: true, // Closes side-nav on <a> clicks, useful for
   draggable: true // Choose whether you can drag to open on touch screens
 });
+// Event listener for logout
+$('.logout').click(() => {
+  firebase.auth().signOut()
+})
 
 ////////////////////////////
 // Firebase Auth
@@ -21,6 +24,20 @@ firebase.initializeApp({
   storageBucket: "moviehistory-githappens.appspot.com",
   messagingSenderId: "86422585644"
 });
+
+firebase.auth().onAuthStateChanged((e) => {
+  if(e !== null) {
+    uid = e.uid
+    loadInitialMovies()
+    $('article.login').addClass('hidden')
+    $('article.mainpage').removeClass('hidden')
+  } else {
+    uid = ""
+    $('section .movieWrapper').remove()
+    $('article.login').removeClass('hidden')
+    $('article.mainpage').addClass('hidden')
+  }
+})
 
 
 // on page load, add movies is hidden
@@ -47,12 +64,13 @@ $(".hideSearch").click(hideAddMovies);
 var userMovieSearch = "star wars";
 var currentMovie;
 var searchMovies;
+var uid;
 
 
 //Allows user input field to update upon user focus
 $(document).ready(function() {
     Materialize.updateTextFields();
-  });
+});
 //Upon focus of user input, add the "active" class to the label
 
 
@@ -161,14 +179,12 @@ function addToWatchList() {
   //removes card from page
   removeSearchCard();
   //adds card object to user json
-  // NOTE: is there no .then() that happens after this promise?
   sendToJSON = new Promise(function(resolve, reject) {
-  jQuery.post("https://moviehistory-githappens.firebaseio.com/.json", JSON.stringify(currentMovie))
+  jQuery.post(`https://moviehistory-githappens.firebaseio.com/${uid}.json`, JSON.stringify(currentMovie))
     .done(function(data, x, t) {
       resolve(data);
     })
-
-    //I need e.name for the object key
+  //I need e.name for the object key
   }).then(function(data) {
     dynamicallyAddToWatchList(data)
   })
@@ -196,25 +212,12 @@ function dynamicallyAddToWatchList(data) {
     $('#all-movies .row').append(card)
 }
 
-  $('.star').click((clickEvt) => {
+  $('#watchlist .movieWrapper:last-child .star').click((clickEvt) => {
     updateStarsOnClick(clickEvt);
   })
 }
 
 ////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //added to user json file
@@ -245,8 +248,9 @@ function deleteSearchMovies(e) {
 
 // Queries firebase for initial data
 // Upon successful fetch of data, calls populate function
+// e is a user object from firebase
 function loadInitialMovies() {
-	var url = 'https://moviehistory-githappens.firebaseio.com/.json'
+	var url = `https://moviehistory-githappens.firebaseio.com/${uid}.json`
 	var movie
 	var p = new Promise(function(res, rej) {
 		$.getJSON(url, (data) => res(data))
@@ -368,8 +372,9 @@ function updateStarsOnClick(clickEvt) {
 }
 
 // Updates star rating on object using patch
+// NOTE: uuid is movie.  uid is user.
 function updateRating(uuid, rating) {
-	var url = `https://moviehistory-githappens.firebaseio.com/${uuid}.json`
+	var url = `https://moviehistory-githappens.firebaseio.com/${uid}/${uuid}.json`
 	$.ajax({
 	  url : url,
 	  data: JSON.stringify({ Stars: rating }),
@@ -387,7 +392,7 @@ function deleteMovieFinal(e) {
   var currentID = $(e.target).parent().parent().parent().parent().attr("id");
   console.log("currentID : ", currentID);
   $.ajax({
-    url : "https://moviehistory-githappens.firebaseio.com/" + currentID + "/.json",
+    url : `https://moviehistory-githappens.firebaseio.com/${uid}/${currentID}/.json`,
     method : "DELETE"
   });
 
@@ -463,7 +468,7 @@ function writeWatched(e) {
   var currentID = $(clickEventOfOld).parent().parent().parent().parent().attr("id");
   console.log("currentID : ", currentID);
   $.ajax({
-    url : "https://moviehistory-githappens.firebaseio.com/" + currentID + "/.json",
+    url : `https://moviehistory-githappens.firebaseio.com/${uid}/${currentID}/.json`,
     data: JSON.stringify({ Watched: true }),
     type : 'PATCH',
     dataType: 'json'
@@ -478,7 +483,7 @@ function writeUnwatched(e) {
   var currentID = $(clickEventOfOld).parent().parent().parent().parent().attr("id");
   console.log("currentID : ", currentID);
   $.ajax({
-    url : "https://moviehistory-githappens.firebaseio.com/" + currentID + "/.json",
+    url : `https://moviehistory-githappens.firebaseio.com/${uid}/${currentID}/.json`,
     data: JSON.stringify({ Watched: false }),
     type : 'PATCH',
     dataType: 'json'
