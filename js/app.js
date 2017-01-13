@@ -490,6 +490,7 @@ function deleteMovieFinal(e) {
 
   //deletes from DOM
   $(e.target).parentsUntil(".row").remove();
+  $("#" + currentID).parentsUntil(".row").remove()
 }
 
 
@@ -642,14 +643,6 @@ $('#all-movies select').change(() => {
       break
   }
 })
-
-
-
-
-
-
-
-
 
 
 
