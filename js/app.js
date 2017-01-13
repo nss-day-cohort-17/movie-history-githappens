@@ -562,7 +562,8 @@ function writeUnwatched(e) {
 // Sort Function
 ////////////////////////////
 
-// Returns data
+// Returns data from history, watchlist, or all-movies
+// Returns data corresponding to info argument
 function getDataFromHTML(section, info) {
   var dataArray = []
   $(`#${section} .movieWrapper`)
