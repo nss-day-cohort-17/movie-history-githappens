@@ -24,8 +24,6 @@ Style for login page
     padding: 0 0.5rem;
 }
 
-
-
 .email,
 .password {
   text-align: left;
@@ -92,10 +90,6 @@ Style for movie cards
   margin-bottom: 20px
 }
 
-p.plot {
-  /*max-height: 100px*/
-}
-
 #watchlist .rating {
   display: none;
 }
@@ -104,7 +98,9 @@ p.plot {
  ** Page Styles
  *********************/
 
-h2 {
+#watchlist h2,
+#history h2,
+#all-movies h2 {
   color: #ee6e73;
   font-weight: 300;
 }
