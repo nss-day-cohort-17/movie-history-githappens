@@ -638,16 +638,12 @@ $('#all-movies select').change(() => {
       $('#all-movies .row').html('')
       repopulateAllMovies(titles, template)
       break
-    case 'imdb-rating':
-      //Do stuff
-      break
     case 'year-released':
       //Do stuff
       break
   }
 })
 
-// NOTE: ADD MOVIE UUID AS ID
 function repopulateAllMovies(array, template) {
   for(var i = 0; i < array.length; i++) {
     var card = template(array[i])
