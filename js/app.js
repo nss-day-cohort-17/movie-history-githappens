@@ -652,7 +652,7 @@ function repopulateAllMovies(array, template) {
   for(var i = 0; i < array.length; i++) {
     var card = template(array[i])
     $('#all-movies .row').append(card)
-    $('#all-movies .row .movieWrapper:last-child').addClass(array[i].uuid)
+    $('#all-movies .row .movieWrapper:last-child .col').attr("id", array[i].uuid)
   }
 }
 
