@@ -613,12 +613,24 @@ function getDataFromHTML(section, info) {
   return dataArray
 }
 
-// Takes object from getDataFromHTML and alphabetizes
+// Takes array of objects from getDataFromHTML and alphabetizes by data attr
 function alphabetizeMovies(array) {
   function compare(a,b) {
     string1 = a.data
     string2 = b.data
     return string1.localeCompare(string2)
+  }
+
+  return array.sort(compare)
+}
+
+// Takes array of objects from getDataFromHTML and sorts by data attr (year)
+function orderMoviesByYear(array) {
+  function compare(a, b) {
+    year1 = Number(String(a.data).slice(0, 4))
+    year2 = Number(String(b.data).slice(0, 4))
+
+    return year2 - year1
   }
 
   return array.sort(compare)
@@ -634,12 +646,14 @@ $('#all-movies select').change(() => {
     case 'alphabetical':
       titles = getDataFromHTML('all-movies', 'title')
       titles = alphabetizeMovies(titles)
-      console.log(titles)
       $('#all-movies .row').html('')
       repopulateAllMovies(titles, template)
       break
     case 'year-released':
-      //Do stuff
+      years = getDataFromHTML('all-movies', 'year')
+      years = orderMoviesByYear(years)
+      $('#all-movies .row').html('')
+      repopulateAllMovies(years, template)
       break
   }
 })
