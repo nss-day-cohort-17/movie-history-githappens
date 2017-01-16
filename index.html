@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Movie History</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> <!-- materialize fonts -->
+	<link rel="stylesheet" type="text/css" href="/bower_components/materialize/dist/css/materialize.css"> <!-- materialize -->
+	<link rel="stylesheet" href="styles/main.css"> <!-- my stylesheet -->
+</head>
+<body>
+
+
+<!-- - - - - - - - - - - - - - -
+ - -  page login
+ - - - - - - - - - - - - - -  -->
+
+<article class="login cyan lighten-2 hidden">
+
+    <center>
+      <a href="#" class="brand-logo"><img class="circle logo popcorn" src="/img/popcorn.png"></a>
+      <div class="section"></div>
+
+      <h5 >Please, login into your account</h5>
+      <div class="section"></div>
+
+      <div class="container">
+        <div class="z-depth-3 grey lighten-4 row loginForm" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+
+          <form class="col s12">
+            <div class='row'>
+              <div class='col s12'>
+              </div>
+            </div>
+
+            <div class='row'>
+              <div class='input-field col s12' id="textarea1">
+                <input class='validate' type='email' name='email' id='email' \/>
+                <label for='email' class="email">Enter your email</label>
+              </div>
+            </div>
+
+            <div class='row'>
+              <div class='input-field col s12'>
+                <input class='validate' type='password' name='password' id='password' />
+                <label for='password' class="password">Enter your password</label>
+              </div>
+              <label style='float: right;'>
+                <a class=' cyan-text text-lighten-2 forgotEmail' href='#'><b>Forgot Password?</b></a>
+              </label>
+            </div>
+
+            <br />
+            <center>
+              <div class='row'>
+                <button name='btn_login' class='col s12 btn btn-large waves-effect amber black-text lighten-2 loginBtn'>Login</button>
+              </div>
+            </center>
+          </form>
+        </div>
+      </div>
+      <a class="waves-effect waves-light btn btn-small  cyan lighten-3 white-text createAccount">Create Account</a>
+      <!-- <a href="#!" class="teal-text text-darken-4 createAccount">Create account</a> -->
+    </center>
+
+
+
+
+
+
+
+</article>
+
+
+
+<article class="mainpage hidden">
+<!-- - - - - - - - - - - - - - -
+ - -  Nav Bar
+ - - - - - - - - - - - - - -  -->
+
+<nav class="nav-extended">
+  <div class="nav-wrapper cyan lighten-2">
+    <a href="#" class="brand-logo"><img class="circle logo" src="/img/popcorn.png"></a>
+    <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="#" class="addMoviesLink">Add Movie</a></li>
+      <li><a href="#" class="hideSearch logout">Log out</a></li>
+    </ul>
+    <!-- Hamburger nav -->
+    <ul class="side-nav" id="mobile-menu">
+      <li><a href="#" class="addMoviesLink">Add Movie</a></li>
+      <li><a href="#" class="hideSearch logout">Log out</a></li>
+    </ul>
+    <ul id="tabs" class="tabs tabs-transparent">
+      <li id="watchlist-tab" class="tab hideSearch"><a class="active">Watchlist</a></li>
+      <li id="history-tab" class="tab hideSearch"><a>History</a></li>
+      <li id="all-movies-tab" class="tab hideSearch"><a>All Movies</a></li>
+    </ul>
+  </div> <!-- end nav-wrapper -->
+</nav> <!-- end nav -->
+
+
+<!-- - - - - - - - - - - - - - -
+ - - ADD MOVIES
+ - - - - - - - - - - - - - -  -->
+
+<div class="addMoviesCard">
+  <div class="row">
+    <form class="col s12">
+      <div class="row z-depth-4 searchCard">
+        <h4>Search for Movies</h4>
+        <div class="input-field col s6">
+          <i class="material-icons prefix">movie</i>
+          <input id="icon_prefix" type="text" class="validate userMovieSearch">
+          <label class="active" for="icon_prefix">Movie Title</label>
+        </div>
+        <div class="input-field col s6">
+           <button id="movieSearch" class="btn waves-effect waves-light col s3 amber black-text lighten-2" type="submit" name="action">Search
+            <i class="material-icons right">search</i>
+          </button>
+        </div> <!-- end input field -->
+      </div>
+    </form>
+  </div>  <!-- end of outer row -->
+</div> <!-- end of add movies card-->
+
+
+<!-- - - - - - - - - - - - - - -
+ - - Container for added movies
+ - - - - - - - - - - - - - -  -->
+
+<div class="addMovieContainer container">
+  <div class="row">
+
+  </div>  <!-- end of outer row -->
+</div> <!-- end of add movies card
+
+
+<!- - - - - - - - - - - - - - -
+ - - Watchlist
+ - - - - - - - - - - - - - -  -->
+
+<section id="watchlist">
+  <div class="movie-cards container">
+  	<h2>Watchlist</h2>
+		<div class="row">
+
+		</div> <!-- end row -->
+	</div> <!-- end container -->
+</section>
+
+<!-- - - - - - - - - - - - - - -
+ - - History
+ - - - - - - - - - - - - - -  -->
+
+<section id="history" class="hidden">
+  <div class="movie-cards container">
+  	<h2>History</h2>
+		<div class="row">
+
+		</div> <!-- end row -->
+	</div> <!-- end container -->
+</section>
+
+<!-- - - - - - - - - - - - - - -
+ - - All Movies
+ - - - - - - - - - - - - - -  -->
+
+<section id="all-movies" class="hidden">
+  <div class="movie-cards container">
+  	<h2>All Movies</h2>
+    <div class="input-field right">
+      <select class="sort">
+        <option value="" disabled selected>Choose your option</option>
+        <option class="alphabetical" value="alphabetical">Alphabetical</option>
+        <option class="year-released" value="year-released">Year Released</option>
+      </select>
+      <label>Sort By:</label>
+    </div>
+		<div class="row">
+
+		</div> <!-- end row -->
+	</div> <!-- end container -->
+</section>
+
+<!-- - - - - - - - - - - - - - -
+ - - Card Template
+ - - - - - - - - - - - - - -  -->
+<script id="card-template" type="text/x-handlebars-template">
+  <div class="movieWrapper">
+    <div class="col m12 l6">
+      <span class="movie-data" data-title="{{Title}}" data-year="{{Year}}" data-rated="{{Rated}}" data-released="{{Released}}" data-runtime="{{Runtime}}" data-genre="{{Genre}}" data-director="{{Director}}" data-writer="{{Writer}}" data-actors="{{Actors}}" data-plot="{{Plot}}" data-language="{{Language}}" data-country="{{Country}}" data-awards="{{Awards}}" data-poster="{{Poster}}" data-metascore="{{Metascore}}" data-imdbRating="{{imdbRating}}" data-imdbVotes="{{idmbVotes}}" data-imdbID="{{imdbID}}" data-type="{{Type}}" data-watched="{{Watched}}" data-stars="{{Stars}}"></span>
+      <h4 class="header movieTitle truncate">{{Title}}</h4>
+      <div class="card horizontal small hoverable">
+        <div class="card-image">
+          <img src="{{Poster}}">
+        </div>
+        <div class="card-stacked">
+          <div class="card-content">
+            <p class="year"><span>Year: </span>{{Year}}</p>
+            <p class="actors"><span>Actors: </span>{{Actors}}</p>
+            <p class="plot"><span>Plot: </span>{{Plot}}</p>
+          </div>
+          <div class="card-action">
+            <a href="#" class="watchedOrNot">Mark Film as Watched</a>
+            <a href="#" class="removeMovie"><i class="material-icons">delete</i></a>
+          </div>
+        </div>
+      </div> <!-- </div> end card -->
+    <div class="rating" data-stars=0>
+		  <span class="star star-5 hollow" data-type='fiveStar' data-value=5>☆</span>
+		  <span class="star star-5 filled hidden" data-value=5>★</span>
+		  <span class="star star-4 hollow" data-type='fourStar' data-value=4>☆</span>
+		  <span class="star star-4 filled hidden" data-value=4>★</span>
+		  <span class="star star-3 hollow" data-type='threeStar' data-value=3>☆</span>
+		  <span class="star star-3 filled hidden" data-value=3>★</span>
+		  <span class="star star-2 hollow" data-type='twoStar' data-value=2>☆</span>
+		  <span class="star star-2 filled hidden" data-value=2>★</span>
+		  <span class="star star-1 hollow" data-type='oneStar' data-value=1>☆</span>
+		  <span class="star star-1 filled hidden" data-value=1>★</span>
+		</div>
+  </div> <!-- end col -->
+ </div> <!-- end of movieWrapper -->
+</script> <!-- end card template -->
+
+</article> <!-- end of mainpage
+ -->
+<!-- jQuery -->
+<script type="text/javascript" src="bower_components/lodash/dist/lodash.js"></script>
+<script src="/bower_components/jquery/dist/jquery.js"></script>
+<script src="/bower_components/materialize/dist/js/materialize.js"></script>
+<script src="/bower_components/handlebars/handlebars.js"></script>
+<script src="/bower_components/firebase/firebase.js"></script>
+<script src="js/app.js"></script>
+</body>
+
+</html>
